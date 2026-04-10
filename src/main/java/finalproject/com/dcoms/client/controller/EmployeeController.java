@@ -4,10 +4,30 @@
  */
 package finalproject.com.dcoms.client.controller;
 
+import finalproject.com.dcoms.client.view.EmployeeDashboard;
+import finalproject.com.dcoms.remote.HRMService;
+import java.rmi.RemoteException;
+
 /**
  *
  * @author zaku
  */
 public class EmployeeController {
+    private HRMService service;
+    private EmployeeDashboard employeeDashboard;
     
+    public EmployeeController(HRMService service, EmployeeDashboard employeeDashboard) {
+        this.service = service;
+        this.employeeDashboard = employeeDashboard;
+    }
+    
+    public void loadName(String employeeId){
+        try {
+            String[] employeeDetails = service.getEmployeeById("1");
+            String name = employeeDetails[1];
+            employeeDashboard.setTitle(name);
+        } catch (RemoteException e) {
+            System.out.println("Failed to load employee: " + e.getMessage());
+        }
+    }
 }
