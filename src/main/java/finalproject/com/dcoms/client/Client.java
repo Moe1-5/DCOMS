@@ -13,14 +13,15 @@ public class Client {
     public static void main(String[] args) {
         java.awt.EventQueue.invokeLater(() -> {
             try {
-                HRMService service = lookupService(HOST, PORT);
+                System.setProperty("javax.net.ssl.trustStore", "client.truststore");
+                System.setProperty("javax.net.ssl.trustStorePassword", "password123");
+
+                String url = "rmi://" + HOST + ":" + PORT + "/HRMService";
+                HRMService service = (HRMService) Naming.lookup(url);
 
                 EmployeeDashboard employeeDashboard = new EmployeeDashboard();
-
                 EmployeeController controller = new EmployeeController(service, employeeDashboard);
-
                 employeeDashboard.setController(controller);
-                
                 controller.loadName("1");
 
                 employeeDashboard.setVisible(true);
@@ -29,10 +30,5 @@ public class Client {
                 System.out.println("Could not connect to server: " + e.getMessage());
             }
         });
-    }
-
-    private static HRMService lookupService(String host, int port) throws Exception {
-        String url = "rmi://" + host + ":" + port + "/HRMService";
-        return (HRMService) Naming.lookup(url);
     }
 }

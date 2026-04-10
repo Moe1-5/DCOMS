@@ -24,7 +24,7 @@ public class EmployeeController {
     }
 
     public void loadName(String employeeId) {
-        // SwingWorker enables async calls to server separate from ui thread
+        // SwingWorker enables async calls to server separate from ui thread (multithreading)
         new SwingWorker<String[], Void>() {
             @Override
             protected String[] doInBackground() throws Exception {
