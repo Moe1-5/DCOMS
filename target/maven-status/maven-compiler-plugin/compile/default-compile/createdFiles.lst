@@ -8,6 +8,7 @@ finalproject\com\dcoms\client\view\EmployeeDashboard.class
 finalproject\com\dcoms\db\EmployeeDAO.class
 finalproject\com\dcoms\server\HRMServiceImpl.class
 finalproject\com\dcoms\client\controller\EmployeeController.class
+finalproject\com\dcoms\client\controller\EmployeeController$1.class
 finalproject\com\dcoms\client\controller\LoginController.class
 finalproject\com\dcoms\db\LeaveApplicationDAO.class
 finalproject\com\dcoms\DCOMS.class
