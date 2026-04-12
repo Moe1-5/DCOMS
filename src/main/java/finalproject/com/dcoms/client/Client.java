@@ -1,7 +1,7 @@
 package finalproject.com.dcoms.client;
 
 import finalproject.com.dcoms.remote.HRMService;
-import finalproject.com.dcoms.client.view.EmployeeDashboard;
+import finalproject.com.dcoms.client.view.EmployeeFrame;
 import finalproject.com.dcoms.client.controller.EmployeeController;
 import java.rmi.Naming;
 
@@ -19,10 +19,10 @@ public class Client {
                 String url = "rmi://" + HOST + ":" + PORT + "/HRMService";
                 HRMService service = (HRMService) Naming.lookup(url);
 
-                EmployeeDashboard employeeDashboard = new EmployeeDashboard();
+                EmployeeFrame employeeDashboard = new EmployeeFrame();
                 EmployeeController controller = new EmployeeController(service, employeeDashboard);
                 employeeDashboard.setController(controller);
-                controller.loadName("1");
+                controller.loadEmployee("1");
 
                 employeeDashboard.setVisible(true);
 

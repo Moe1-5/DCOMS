@@ -1,3 +1,4 @@
+finalproject\com\dcoms\client\model\LeaveApplication.class
 finalproject\com\dcoms\db\LeaveHistoryDAO.class
 finalproject\com\dcoms\client\Client.class
 finalproject\com\dcoms\db\FamilyDetailsDAO.class
@@ -5,10 +6,14 @@ finalproject\com\dcoms\db\dbConnection.class
 finalproject\com\dcoms\remote\HRMService.class
 finalproject\com\dcoms\server\Server.class
 finalproject\com\dcoms\client\view\EmployeeDashboard.class
+finalproject\com\dcoms\client\model\Employee.class
+finalproject\com\dcoms\client\model\FamilyDetails.class
 finalproject\com\dcoms\db\EmployeeDAO.class
+finalproject\com\dcoms\client\view\LoadingPanel.class
 finalproject\com\dcoms\server\HRMServiceImpl.class
 finalproject\com\dcoms\client\controller\EmployeeController.class
 finalproject\com\dcoms\client\controller\EmployeeController$1.class
+finalproject\com\dcoms\client\view\EmployeeFrame.class
 finalproject\com\dcoms\client\controller\LoginController.class
 finalproject\com\dcoms\db\LeaveApplicationDAO.class
 finalproject\com\dcoms\DCOMS.class
