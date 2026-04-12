@@ -23,6 +23,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
      */
     public EmployeeFrame() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
     
     public void setController(EmployeeController controller) {

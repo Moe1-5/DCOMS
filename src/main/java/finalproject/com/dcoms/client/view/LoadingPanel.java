@@ -26,8 +26,7 @@ public class LoadingPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        spinner = new javax.swing.JLabel(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png")).getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)))
-        ;
+        spinner = new javax.swing.JLabel("<html><img src='" + getClass().getResource("/gifs/spinner.gif") + "' width=50 height=50></html>");
 
         spinner.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -36,9 +35,9 @@ public class LoadingPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(369, 369, 369)
+                .addGap(361, 361, 361)
                 .addComponent(spinner, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addContainerGap(379, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -17,9 +17,9 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="361" max="-2" attributes="0"/>
               <Component id="spinner" min="-2" pref="60" max="-2" attributes="0"/>
-              <EmptySpace pref="371" max="32767" attributes="0"/>
+              <EmptySpace pref="379" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -39,7 +39,7 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
       <AuxValues>
-        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(&quot;/images/logo.png&quot;)).getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)))&#xd;&#xa;"/>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel(&quot;&lt;html&gt;&lt;img src=&apos;&quot; + getClass().getResource(&quot;/gifs/spinner.gif&quot;) + &quot;&apos; width=50 height=50&gt;&lt;/html&gt;&quot;)"/>
       </AuxValues>
     </Component>
   </SubComponents>
