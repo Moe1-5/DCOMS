@@ -11,6 +11,8 @@ import finalproject.com.dcoms.db.LeaveApplicationDAO;
 import finalproject.com.dcoms.db.LeaveHistoryDAO;
 import finalproject.com.dcoms.remote.HRMService;
 import java.rmi.RemoteException;
+import java.rmi.server.RMIClientSocketFactory;
+import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
 /**
@@ -24,8 +26,8 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     private final LeaveApplicationDAO leaveApplicationDAO;
     private final LeaveHistoryDAO leaveHistoryDAO;
 
-    public HRMServiceImpl() throws RemoteException {
-        super();
+    public HRMServiceImpl(RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
+        super(0, csf, ssf);
         employeeDAO        = new EmployeeDAO();
         familyDetailsDAO   = new FamilyDetailsDAO();
         leaveApplicationDAO = new LeaveApplicationDAO();

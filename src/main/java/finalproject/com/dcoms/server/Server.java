@@ -7,18 +7,31 @@ package finalproject.com.dcoms.server;
 import finalproject.com.dcoms.remote.HRMService;
 import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+import javax.rmi.ssl.SslRMIServerSocketFactory;
+
 /**
  *
  * @author albad
  */
 public class Server {
-     public static void main(String[] args) {
-        try {
-            LocateRegistry.createRegistry(1099);
-            System.out.println("RMI registry started on port 1099...");
 
-            HRMService service = new HRMServiceImpl();
-            Naming.rebind("rmi://localhost/HRMService", service);
+    private static final String HOST = "localhost";
+    private static final int PORT = 1099;
+
+    public static void main(String[] args) {
+        try {
+            System.setProperty("javax.net.ssl.keyStore", "server.keystore");
+            System.setProperty("javax.net.ssl.keyStorePassword", "password123");
+
+            SslRMIClientSocketFactory csf = new SslRMIClientSocketFactory();
+            SslRMIServerSocketFactory ssf = new SslRMIServerSocketFactory();
+            
+            LocateRegistry.createRegistry(PORT);
+            System.out.println("RMI registry started on port "+PORT+"...");
+
+            HRMService service = new HRMServiceImpl(csf, ssf);
+            Naming.rebind("rmi://"+HOST+"/HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
         } catch (Exception e) {
