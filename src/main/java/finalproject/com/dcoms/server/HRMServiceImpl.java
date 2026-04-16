@@ -38,6 +38,10 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     }
 
     // User
+    public String[] login(String username, String password) throws RemoteException {
+        return userDAO.login(username, password);
+    }
+
     @Override
     public String[] getUserByUsername(String username) throws RemoteException {
         return userDAO.getUserByUsername(username);

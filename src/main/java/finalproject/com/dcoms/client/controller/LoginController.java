@@ -25,12 +25,21 @@ public class LoginController {
     public void login(String username, String password) {
         System.out.println("DEBUG: tryna login wit:" + username + password);
 
+        // try {
+        // if (service.getUserByUsername(username) != null) {
+        // System.out.println("DEBUG: found something!");
+        // }
+        // } catch (Exception e) {
+        // System.out.println("Failed to load user: " + e.getMessage());
+        // }
         try {
-            if (service.getUserByUsername(username) != null) {
-                System.out.println("DEBUG: found something!");
+            if (service.login(username, password) != null) {
+                System.out.println("yipeee login is cool");
+            } else {
+                System.out.println("login is wrong??");
             }
         } catch (Exception e) {
-            System.out.println("Failed to load user: " + e.getMessage());
+            System.out.println(e + "error while logging in");
         }
 
     }

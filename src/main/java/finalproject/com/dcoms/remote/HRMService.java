@@ -14,6 +14,8 @@ import java.util.List;
  */
 public interface HRMService extends Remote {
     // User
+    String[] login(String username, String password) throws RemoteException;
+
     String[] getUserByUsername(String username) throws RemoteException;
 
     // Employee
