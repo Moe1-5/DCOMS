@@ -4,6 +4,8 @@
  */
 package finalproject.com.dcoms.client.controller;
 
+import finalproject.com.dcoms.client.ClientApp;
+import finalproject.com.dcoms.client.model.User;
 import finalproject.com.dcoms.client.view.LoginFrame;
 import finalproject.com.dcoms.remote.HRMService;
 
@@ -13,12 +15,14 @@ import finalproject.com.dcoms.remote.HRMService;
  */
 public class LoginController {
     private HRMService service;
+    private ClientApp app;
     private LoginFrame loginScreen;
     private String username;
     private String password;
 
-    public LoginController(HRMService service) {
+    public LoginController(HRMService service, ClientApp app) {
         this.service = service;
+        this.app = app;
         // this.loginScreen = loginScreen;
     }
 
@@ -33,8 +37,13 @@ public class LoginController {
         // System.out.println("Failed to load user: " + e.getMessage());
         // }
         try {
-            if (service.login(username, password) != null) {
+            String[] userDetails = service.login(username, password);
+            if (userDetails != null) {
                 System.out.println("yipeee login is cool");
+                User user = new User(userDetails[0], userDetails[1], userDetails[2], userDetails[3], userDetails[4],
+                        userDetails[5]);
+                app.showEmployeeDashboard(user);
+
             } else {
                 System.out.println("login is wrong??");
             }

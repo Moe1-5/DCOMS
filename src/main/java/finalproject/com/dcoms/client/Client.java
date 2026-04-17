@@ -33,11 +33,16 @@ public class Client {
                 // employeeDashboard.setVisible(true);
 
                 // TESTING LOGIN
+                ClientApp app = new ClientApp(service);
+                LoginController loginController = new LoginController(service, app);
+                EmployeeController employeeController = new EmployeeController(service);
+                app.setController(loginController);
+                app.setController(employeeController);
+                app.showLogin();
 
-                LoginController loginController = new LoginController(service);
-                LoginFrame loginFrame = new LoginFrame();
-                loginFrame.setController(loginController);
-                loginFrame.setVisible(true);
+                // LoginFrame loginFrame = new LoginFrame();
+                // loginFrame.setController(loginController);
+                // loginFrame.setVisible(true);
 
             } catch (Exception e) {
                 System.out.println("Could not connect to server: " + e.getMessage());

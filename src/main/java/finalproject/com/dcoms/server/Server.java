@@ -26,12 +26,12 @@ public class Server {
 
             SslRMIClientSocketFactory csf = new SslRMIClientSocketFactory();
             SslRMIServerSocketFactory ssf = new SslRMIServerSocketFactory();
-            
+
             LocateRegistry.createRegistry(PORT);
-            System.out.println("RMI registry started on port "+PORT+"...");
+            System.out.println("RMI registry started on port " + PORT + "...");
 
             HRMService service = new HRMServiceImpl(csf, ssf);
-            Naming.rebind("rmi://"+HOST+"/HRMService", service);
+            Naming.rebind("rmi://" + HOST + "/HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
         } catch (Exception e) {
