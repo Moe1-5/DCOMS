@@ -6,7 +6,6 @@ package finalproject.com.dcoms.client.view;
 
 import finalproject.com.dcoms.client.controller.EmployeeController;
 import finalproject.com.dcoms.client.model.Employee;
-import java.awt.Image;
 
 /**
  *

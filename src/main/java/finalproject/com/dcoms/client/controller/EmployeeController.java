@@ -17,11 +17,11 @@ import javax.swing.SwingWorker;
 public class EmployeeController {
 
     private HRMService service;
-    private EmployeeFrame employeeDashboard;
+    private EmployeeFrame employeeFrame;
 
     public EmployeeController(HRMService service, EmployeeFrame employeeDashboard) {
         this.service = service;
-        this.employeeDashboard = employeeDashboard;
+        this.employeeFrame = employeeDashboard;
     }
 
     public void loadEmployee(String employeeId) {
@@ -37,7 +37,7 @@ public class EmployeeController {
                 try {
                     String[] employeeDetails = get();
                     Employee employee = Employee.fromStringArray(employeeDetails);
-                    employeeDashboard.setEmployeeDetails(employee);
+                    employeeFrame.setEmployeeDetails(employee);
                 } catch (Exception e) {
                     System.out.println("Failed to load employee: " + e.getMessage());
                 }
