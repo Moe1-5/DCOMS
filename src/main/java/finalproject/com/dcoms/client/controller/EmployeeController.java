@@ -28,7 +28,6 @@ public class EmployeeController {
     }
 
     public void loadEmployee(String employeeId) {
-        System.out.println("DEBUG trying to load emplloeeee");
         // SwingWorker enables async calls to server separate from ui thread
         // (multithreading)
         new SwingWorker<String[], Void>() {

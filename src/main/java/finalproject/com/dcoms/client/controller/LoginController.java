@@ -42,7 +42,12 @@ public class LoginController {
                 System.out.println("yipeee login is cool");
                 User user = new User(userDetails[0], userDetails[1], userDetails[2], userDetails[3], userDetails[4],
                         userDetails[5]);
-                app.showEmployeeDashboard(user);
+                if (userDetails[3].equals("EMP")) {
+                    app.showEmployeeDashboard(user);
+                } else {
+                    System.out.println("DEBUGCLIENT this is a HR user");
+                    app.showStaffDashboard();
+                }
 
             } else {
                 System.out.println("login is wrong??");
