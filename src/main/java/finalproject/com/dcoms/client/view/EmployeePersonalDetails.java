@@ -2,8 +2,43 @@ package finalproject.com.dcoms.client.view;
 
 public class EmployeePersonalDetails extends javax.swing.JPanel {
 
+    public interface SaveHandler {
+        void onSave(String firstName, String lastName, String icPassport, String spouseName, int children);
+    }
+
+    private SaveHandler saveHandler;
+    private boolean editMode = false;
+
     public EmployeePersonalDetails() {
         initComponents();
+        confirmButton.setVisible(false);
+        childrenSpinner.setEnabled(false);
+    }
+
+    public void setSaveHandler(SaveHandler handler) {
+        this.saveHandler = handler;
+    }
+
+    private void setFieldsEditable(boolean editable) {
+        firstNameField.setEnabled(editable);
+        lastNameField.setEnabled(editable);
+        passportField.setEnabled(editable);
+        spouseNameField.setEnabled(editable);
+        childrenSpinner.setEnabled(editable);
+    }
+
+    private void enterEditMode() {
+        editMode = true;
+        setFieldsEditable(true);
+        confirmButton.setVisible(true);
+        editButton.setText("Cancel");
+    }
+
+    public void exitEditMode() {
+        editMode = false;
+        setFieldsEditable(false);
+        confirmButton.setVisible(false);
+        editButton.setText("Edit");
     }
 
     @SuppressWarnings("unchecked")
@@ -71,8 +106,18 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
         childrenLabel.setText("Children");
 
         confirmButton.setText("Confirm");
+        confirmButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                confirmButtonActionPerformed(evt);
+            }
+        });
 
         editButton.setText("Edit");
+        editButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -84,7 +129,7 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                         .addGap(144, 144, 144)
                         .addComponent(profilePictureLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,12 +154,8 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                                 .addComponent(spouseNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(0, 137, Short.MAX_VALUE)
-                                        .addComponent(confirmButton))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(childrenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE)))))))
+                                    .addComponent(childrenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(confirmButton))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -139,27 +180,22 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                         .addComponent(lastNameLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(lastNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(passportLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(passportField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(familyDetailsLabel)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spouseNameLabel)
-                            .addComponent(childrenLabel))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(spouseNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(childrenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(28, 28, 28))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(confirmButton)
-                        .addContainerGap())))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(passportLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(passportField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(familyDetailsLabel)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spouseNameLabel)
+                    .addComponent(childrenLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spouseNameField, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(childrenSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(confirmButton))
+                .addContainerGap(28, Short.MAX_VALUE))
         );
     }
 
@@ -173,6 +209,27 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
     }
 
     private void spouseNameFieldActionPerformed(java.awt.event.ActionEvent evt) {
+    }
+
+    private void confirmButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (saveHandler != null) {
+            int children = (int) childrenSpinner.getValue();
+            saveHandler.onSave(
+                firstNameField.getText().trim(),
+                lastNameField.getText().trim(),
+                passportField.getText().trim(),
+                spouseNameField.getText().trim(),
+                children
+            );
+        }
+    }
+
+    private void editButtonActionPerformed(java.awt.event.ActionEvent evt) {
+        if (editMode) {
+            exitEditMode();
+        } else {
+            enterEditMode();
+        }
     }
 
     private javax.swing.JLabel childrenLabel;
@@ -209,5 +266,17 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
 
     public void setChildrenSpinner(int children) {
         childrenSpinner.setValue(children);
+    }
+
+    public String getFirstName() {
+        return firstNameField.getText().trim();
+    }
+
+    public String getLastName() {
+        return lastNameField.getText().trim();
+    }
+
+    public String getIcPassport() {
+        return passportField.getText().trim();
     }
 }

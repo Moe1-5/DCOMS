@@ -52,4 +52,21 @@ public class EmployeeDAO {
         }
         return -1;
     }
+
+    public boolean updateEmployeeById(String employeeId, String firstName, String lastName, String icPassport) {
+        String sql = "UPDATE Employee SET firstName = ?, lastName = ?, icPassport = ? WHERE employeeId = ?";
+        try {
+            Connection conn = dbConnection.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, firstName);
+            stmt.setString(2, lastName);
+            stmt.setString(3, icPassport);
+            stmt.setString(4, employeeId);
+            stmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("EmployeeDAO error: " + e.getMessage());
+            return false;
+        }
+    }
 }

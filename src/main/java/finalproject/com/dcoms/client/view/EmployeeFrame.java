@@ -73,11 +73,77 @@ public class EmployeeFrame extends javax.swing.JFrame {
     }
 
     public void showProfilePopup() {
+        popupFrame.showPersonalDetails();
+        EmployeePersonalDetails panel = popupFrame.getEmployeePersonalDetails();
+        panel.setSaveHandler(new EmployeePersonalDetails.SaveHandler() {
+            @Override
+            public void onSave(String firstName, String lastName, String icPassport, String spouseName, int children) {
+                controller.updateEmployeeDetails(currentEmployeeId, firstName, lastName, icPassport, spouseName, children);
+                panel.exitEditMode();
+            }
+        });
         if (currentEmployeeId != null) {
             controller.loadFamilyDetails(currentEmployeeId);
         }
         popupFrame.setVisible(true);
         popupFrame.toFront();
+    }
+
+    public void showLeaveApplicationPopup() {
+        popupFrame.showLeaveApplication();
+        popupFrame.getLeaveApplicationPanel().clearFields();
+        popupFrame.getLeaveApplicationPanel().setSubmitHandler(new LeaveApplicationPanel.SubmitHandler() {
+            @Override
+            public void onSubmit(String leaveType, String startDate, String endDate) {
+                String formattedStart = convertDateToISO(startDate);
+                String formattedEnd = convertDateToISO(endDate);
+                if (formattedStart == null || formattedEnd == null) {
+                    System.out.println("Invalid date format. Please use DD-MM-YYYY");
+                    return;
+                }
+                if (leaveType == null || leaveType.isEmpty()) {
+                    System.out.println("Leave type cannot be empty");
+                    return;
+                }
+                String leaveId = generateLeaveId();
+                System.out.println("Applying leave: " + leaveId + " for " + currentEmployeeId + " type=" + leaveType + " from=" + formattedStart + " to=" + formattedEnd);
+                controller.applyLeave(leaveId, currentEmployeeId, leaveType, formattedStart, formattedEnd);
+                popupFrame.setVisible(false);
+            }
+        });
+        popupFrame.setVisible(true);
+        popupFrame.toFront();
+    }
+
+    private int leaveIdCounter = 0;
+    private String generateLeaveId() {
+        leaveIdCounter++;
+        return String.format("L%03d", leaveIdCounter);
+    }
+
+    private String convertDateToISO(String date) {
+        if (date == null || date.isEmpty()) return null;
+        try {
+            String[] parts = date.split("-");
+            if (parts.length == 3) {
+                String day = parts[0];
+                String month = parts[1];
+                String year = parts[2];
+                return year + "-" + month + "-" + day;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public void onLeaveApplied() {
+        if (currentEmployeeId != null) {
+            controller.loadLeaveHistory(currentEmployeeId);
+        }
+    }
+
+    public void onEmployeeDetailsUpdated() {
+        controller.loadEmployee(currentEmployeeId);
     }
 
     public void setDashboardDetails(Employee employee) {
@@ -124,6 +190,11 @@ public class EmployeeFrame extends javax.swing.JFrame {
             @Override
             public void onProfileClicked() {
                 showProfilePopup();
+            }
+
+            @Override
+            public void onApplyLeaveClicked() {
+                showLeaveApplicationPopup();
             }
         });
         

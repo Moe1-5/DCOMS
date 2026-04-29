@@ -67,7 +67,7 @@ public class EmployeeController {
         new SwingWorker<List<String[]>, Void>() {
             @Override
             protected List<String[]> doInBackground() throws Exception {
-                return service.getHistoryByEmployee(employeeId);
+                return service.getLeavesByEmployee(employeeId);
             }
 
             @Override
@@ -77,6 +77,56 @@ public class EmployeeController {
                     employeeFrame.setLeaveHistory(history);
                 } catch (Exception e) {
                     System.out.println("Failed to load leave history: " + e.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    public void applyLeave(String leaveId, String employeeId, String leaveType, String startDate, String endDate) {
+        new SwingWorker<Boolean, Void>() {
+            @Override
+            protected Boolean doInBackground() throws Exception {
+                return service.applyLeave(leaveId, employeeId, leaveType, startDate, endDate);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    boolean success = get();
+                    if (success) {
+                        System.out.println("Leave application submitted successfully");
+                        employeeFrame.onLeaveApplied();
+                    } else {
+                        System.out.println("Failed to submit leave application - check date format (use DD-MM-YYYY) and leave type values");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Failed to apply leave: " + e.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    public void updateEmployeeDetails(String employeeId, String firstName, String lastName, String icPassport, String spouseName, int children) {
+        new SwingWorker<Boolean, Void>() {
+            @Override
+            protected Boolean doInBackground() throws Exception {
+                boolean employeeUpdated = service.updateEmployeeById(employeeId, firstName, lastName, icPassport);
+                boolean familyUpdated = service.updateFamilyDetails(employeeId, spouseName, children);
+                return employeeUpdated && familyUpdated;
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    boolean success = get();
+                    if (success) {
+                        System.out.println("Employee details updated successfully");
+                        employeeFrame.onEmployeeDetailsUpdated();
+                    } else {
+                        System.out.println("Failed to update employee details");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Failed to update employee details: " + e.getMessage());
                 }
             }
         }.execute();

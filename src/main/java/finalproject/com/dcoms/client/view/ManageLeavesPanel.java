@@ -9,6 +9,7 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
         void onDashboardClicked();
         void onManageLeavesClicked();
         void onProfileClicked();
+        void onApplyLeaveClicked();
     }
 
     private NavigationHandler navigationHandler;
@@ -51,6 +52,14 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (navigationHandler != null) {
                     navigationHandler.onProfileClicked();
+                }
+            }
+        });
+
+        applyLeaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (navigationHandler != null) {
+                    navigationHandler.onApplyLeaveClicked();
                 }
             }
         });

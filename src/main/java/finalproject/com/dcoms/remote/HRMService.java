@@ -23,6 +23,8 @@ public interface HRMService extends Remote {
 
     int getLeaveBalance(String employeeId) throws RemoteException;
 
+    boolean updateEmployeeById(String employeeId, String firstName, String lastName, String icPassport) throws RemoteException;
+
     // family Details
     boolean insertFamilyDetails(String employeeId, String spouseName, int children) throws RemoteException;
 
