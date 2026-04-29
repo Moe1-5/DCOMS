@@ -1,5 +1,51 @@
 ## Data Format Design
 
+### User Data Structure
+
+```json
+{
+  "userId": "U001",
+  "username": "johndoe",
+  "password": "hashed_password",
+  "role": "EMP",
+  "employeeId": "E001",
+  "hrId": null
+}
+```
+
+| Field        | Type           | Notes                                |
+| ------------ | -------------- | ------------------------------------ |
+| `userId`     | `VARCHAR(10)`  | Prefix `U` + zero-padded number      |
+| `username`   | `VARCHAR(50)`  | Unique                               |
+| `password`   | `VARCHAR(255)` | Store hashed password                |
+| `role`       | `VARCHAR(10)`  | `"EMP"` or `"HR"`                    |
+| `employeeId` | `VARCHAR(10)`  | FK → `Employee.employeeId`, nullable |
+| `hrId`       | `VARCHAR(10)`  | FK → `HRStaff.hrId`, nullable        |
+
+> Only **one of `employeeId` or `hrId` should be non-null** depending on role.
+
+---
+
+### HR Staff Data Structure
+
+```json
+{
+  "hrId": "H001",
+  "firstName": "Alice",
+  "lastName": "Tan",
+  "icPassport": "B7654321"
+}
+```
+
+| Field        | Type          | Notes                           |
+| ------------ | ------------- | ------------------------------- |
+| `hrId`       | `VARCHAR(10)` | Prefix `H` + zero-padded number |
+| `firstName`  | `VARCHAR(50)` |                                 |
+| `lastName`   | `VARCHAR(50)` |                                 |
+| `icPassport` | `VARCHAR(15)` |                                 |
+
+---
+
 ### Employee Data Structure
 ```json
 {

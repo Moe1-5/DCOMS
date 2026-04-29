@@ -2,8 +2,13 @@ package finalproject.com.dcoms.client;
 
 import finalproject.com.dcoms.remote.HRMService;
 import finalproject.com.dcoms.client.view.EmployeeFrame;
+import finalproject.com.dcoms.client.view.LoginFrame;
 import finalproject.com.dcoms.client.controller.EmployeeController;
+import finalproject.com.dcoms.client.controller.LoginController;
+
 import java.rmi.Naming;
+
+import javax.security.auth.login.LoginContext;
 
 public class Client {
 
@@ -19,12 +24,17 @@ public class Client {
                 String url = "rmi://" + HOST + ":" + PORT + "/HRMService";
                 HRMService service = (HRMService) Naming.lookup(url);
 
-                EmployeeFrame employeeDashboard = new EmployeeFrame();
-                EmployeeController controller = new EmployeeController(service, employeeDashboard);
-                employeeDashboard.setController(controller);
-                controller.loadEmployee("1");
+                // TESTING LOGIN
+                ClientApp app = new ClientApp(service);
+                LoginController loginController = new LoginController(service, app);
+                EmployeeController employeeController = new EmployeeController(service);
+                app.setController(loginController);
+                app.setController(employeeController);
+                app.showLogin();
 
-                employeeDashboard.setVisible(true);
+                // LoginFrame loginFrame = new LoginFrame();
+                // loginFrame.setController(loginController);
+                // loginFrame.setVisible(true);
 
             } catch (Exception e) {
                 System.out.println("Could not connect to server: " + e.getMessage());

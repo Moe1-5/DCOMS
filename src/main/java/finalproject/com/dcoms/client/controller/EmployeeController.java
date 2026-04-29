@@ -19,19 +19,23 @@ public class EmployeeController {
     private HRMService service;
     private EmployeeFrame employeeFrame;
 
-    public EmployeeController(HRMService service, EmployeeFrame employeeDashboard) {
+    public EmployeeController(HRMService service) {
         this.service = service;
-        this.employeeFrame = employeeDashboard;
+    }
+
+    public void setEmployeeFrame(EmployeeFrame employeeFrame) {
+        this.employeeFrame = employeeFrame;
     }
 
     public void loadEmployee(String employeeId) {
-        // SwingWorker enables async calls to server separate from ui thread (multithreading)
+        // SwingWorker enables async calls to server separate from ui thread
+        // (multithreading)
         new SwingWorker<String[], Void>() {
             @Override
             protected String[] doInBackground() throws Exception {
-                return service.getEmployeeById("1");
+                return service.getEmployeeById(employeeId);
             }
-            
+
             @Override
             protected void done() {
                 try {
@@ -43,5 +47,5 @@ public class EmployeeController {
                 }
             }
         }.execute();
-    }   
+    }
 }
