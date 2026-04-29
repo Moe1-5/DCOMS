@@ -8,12 +8,9 @@ import finalproject.com.dcoms.client.model.Employee;
 import finalproject.com.dcoms.client.view.EmployeeFrame;
 import finalproject.com.dcoms.remote.HRMService;
 import java.rmi.RemoteException;
+import java.util.List;
 import javax.swing.SwingWorker;
 
-/**
- *
- * @author zaku
- */
 public class EmployeeController {
 
     private HRMService service;
@@ -28,8 +25,6 @@ public class EmployeeController {
     }
 
     public void loadEmployee(String employeeId) {
-        // SwingWorker enables async calls to server separate from ui thread
-        // (multithreading)
         new SwingWorker<String[], Void>() {
             @Override
             protected String[] doInBackground() throws Exception {
@@ -41,9 +36,47 @@ public class EmployeeController {
                 try {
                     String[] employeeDetails = get();
                     Employee employee = Employee.fromStringArray(employeeDetails);
-                    employeeFrame.setEmployeeDetails(employee);
+                    employeeFrame.setDashboardDetails(employee);
                 } catch (Exception e) {
                     System.out.println("Failed to load employee: " + e.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    public void loadFamilyDetails(String employeeId) {
+        new SwingWorker<String[], Void>() {
+            @Override
+            protected String[] doInBackground() throws Exception {
+                return service.getFamilyByEmployeeId(employeeId);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    String[] familyDetails = get();
+                    employeeFrame.setPersonalDetails(familyDetails);
+                } catch (Exception e) {
+                    System.out.println("Failed to load family details: " + e.getMessage());
+                }
+            }
+        }.execute();
+    }
+
+    public void loadLeaveHistory(String employeeId) {
+        new SwingWorker<List<String[]>, Void>() {
+            @Override
+            protected List<String[]> doInBackground() throws Exception {
+                return service.getHistoryByEmployee(employeeId);
+            }
+
+            @Override
+            protected void done() {
+                try {
+                    List<String[]> history = get();
+                    employeeFrame.setLeaveHistory(history);
+                } catch (Exception e) {
+                    System.out.println("Failed to load leave history: " + e.getMessage());
                 }
             }
         }.execute();
