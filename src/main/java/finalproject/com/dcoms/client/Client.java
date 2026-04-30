@@ -7,12 +7,13 @@ import finalproject.com.dcoms.client.controller.EmployeeController;
 import finalproject.com.dcoms.client.controller.LoginController;
 
 import java.rmi.Naming;
-
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import javax.security.auth.login.LoginContext;
 
 public class Client {
 
-    private static final String HOST = "localhost";
+        private static final String HOST = "localhost";
     private static final int PORT = 1099;
 
     public static void main(String[] args) {
@@ -22,7 +23,8 @@ public class Client {
                 System.setProperty("javax.net.ssl.trustStorePassword", "password123");
 
                 String url = "rmi://" + HOST + ":" + PORT + "/HRMService";
-                HRMService service = (HRMService) Naming.lookup(url);
+                Registry registry = LocateRegistry.getRegistry(HOST, PORT);
+                HRMService service = (HRMService) registry.lookup("HRMService");
 
                 // TESTING LOGIN
                 ClientApp app = new ClientApp(service);

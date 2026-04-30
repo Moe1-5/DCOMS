@@ -31,7 +31,7 @@ public class Server {
             System.out.println("RMI registry started on port " + PORT + "...");
 
             HRMService service = new HRMServiceImpl(csf, ssf);
-            Naming.rebind("rmi://" + HOST + "/HRMService", service);
+            Naming.rebind("HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
         } catch (Exception e) {
