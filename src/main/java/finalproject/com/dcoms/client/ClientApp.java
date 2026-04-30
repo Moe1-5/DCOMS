@@ -3,9 +3,11 @@ package finalproject.com.dcoms.client;
 import finalproject.com.dcoms.client.model.User;
 import finalproject.com.dcoms.client.controller.EmployeeController;
 import finalproject.com.dcoms.client.controller.LoginController;
+import finalproject.com.dcoms.client.controller.StaffController;
 import finalproject.com.dcoms.client.view.EmployeeDashboard;
 import finalproject.com.dcoms.client.view.EmployeeFrame;
 import finalproject.com.dcoms.client.view.HRFrame;
+import finalproject.com.dcoms.client.view.HRRegistration;
 import finalproject.com.dcoms.client.view.LoginFrame;
 import finalproject.com.dcoms.remote.HRMService;
 
@@ -14,6 +16,7 @@ public class ClientApp {
     private LoginController loginController;
     private EmployeeController employeeController;
     private LoginFrame loginFrame;
+    private StaffController staffController;
 
     public ClientApp(HRMService service) {
         this.service = service;
@@ -40,7 +43,11 @@ public class ClientApp {
     public void showStaffDashboard() {
         System.out.println("DEBUGCLIENT trying to show staff board...");
         HRFrame hrFrame = new HRFrame();
-        
+        hrFrame.setController(staffController);
+        System.out.println("CLIENTAPP staffcntroller is: " + staffController.toString());
+        hrFrame.setVisible(true);
+        loginFrame.dispose();
+
     }
 
     public void setController(LoginController loginController) {
@@ -49,5 +56,9 @@ public class ClientApp {
 
     public void setController(EmployeeController employeeController) {
         this.employeeController = employeeController;
+    }
+
+    public void setController(StaffController staffController) {
+        this.staffController = staffController;
     }
 }

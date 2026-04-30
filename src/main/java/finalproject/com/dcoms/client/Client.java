@@ -5,6 +5,7 @@ import finalproject.com.dcoms.client.view.EmployeeFrame;
 import finalproject.com.dcoms.client.view.LoginFrame;
 import finalproject.com.dcoms.client.controller.EmployeeController;
 import finalproject.com.dcoms.client.controller.LoginController;
+import finalproject.com.dcoms.client.controller.StaffController;
 
 import java.rmi.Naming;
 
@@ -36,8 +37,10 @@ public class Client {
                 ClientApp app = new ClientApp(service);
                 LoginController loginController = new LoginController(service, app);
                 EmployeeController employeeController = new EmployeeController(service);
+                StaffController staffController = new StaffController(service);
                 app.setController(loginController);
                 app.setController(employeeController);
+                app.setController(staffController);
                 app.showLogin();
 
                 // LoginFrame loginFrame = new LoginFrame();

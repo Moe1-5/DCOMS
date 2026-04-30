@@ -39,7 +39,6 @@ public class LoginController {
         try {
             String[] userDetails = service.login(username, password);
             if (userDetails != null) {
-                System.out.println("yipeee login is cool");
                 User user = new User(userDetails[0], userDetails[1], userDetails[2], userDetails[3], userDetails[4],
                         userDetails[5]);
                 if (userDetails[3].equals("EMP")) {
