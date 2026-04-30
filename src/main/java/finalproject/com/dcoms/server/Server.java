@@ -9,6 +9,7 @@ import java.rmi.Naming;
 import java.rmi.registry.LocateRegistry;
 import javax.rmi.ssl.SslRMIClientSocketFactory;
 import javax.rmi.ssl.SslRMIServerSocketFactory;
+import java.rmi.registry.Registry;
 
 /**
  *
@@ -31,7 +32,8 @@ public class Server {
             System.out.println("RMI registry started on port " + PORT + "...");
 
             HRMService service = new HRMServiceImpl(csf, ssf);
-            Naming.rebind("HRMService", service);
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.rebind("HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
         } catch (Exception e) {
