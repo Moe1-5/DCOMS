@@ -4,55 +4,75 @@
  */
 package finalproject.com.dcoms.server;
 
-
+import finalproject.com.dcoms.db.UserDAO;
 import finalproject.com.dcoms.db.EmployeeDAO;
 import finalproject.com.dcoms.db.FamilyDetailsDAO;
 import finalproject.com.dcoms.db.LeaveApplicationDAO;
 import finalproject.com.dcoms.db.LeaveHistoryDAO;
 import finalproject.com.dcoms.remote.HRMService;
 import java.rmi.RemoteException;
+import java.rmi.server.RMIClientSocketFactory;
+import java.rmi.server.RMIServerSocketFactory;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.List;
+
 /**
  *
  * @author albad
  */
 public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
-    
+
+    private final UserDAO userDAO;
     private final EmployeeDAO employeeDAO;
     private final FamilyDetailsDAO familyDetailsDAO;
     private final LeaveApplicationDAO leaveApplicationDAO;
     private final LeaveHistoryDAO leaveHistoryDAO;
 
-    public HRMServiceImpl() throws RemoteException {
-        super();
-        employeeDAO        = new EmployeeDAO();
-        familyDetailsDAO   = new FamilyDetailsDAO();
+    public HRMServiceImpl(RMIClientSocketFactory csf, RMIServerSocketFactory ssf) throws RemoteException {
+        super(0, csf, ssf);
+        userDAO = new UserDAO();
+        employeeDAO = new EmployeeDAO();
+        familyDetailsDAO = new FamilyDetailsDAO();
         leaveApplicationDAO = new LeaveApplicationDAO();
-        leaveHistoryDAO    = new LeaveHistoryDAO();
+        leaveHistoryDAO = new LeaveHistoryDAO();
     }
-    
-    //Employee 
+
+    // User
+    public String[] login(String username, String password) throws RemoteException {
+        return userDAO.login(username, password);
+    }
+
     @Override
-    public String[] getEmployeeById(String employeeId) throws RemoteException{
+    public String[] getUserByUsername(String username) throws RemoteException {
+        return userDAO.getUserByUsername(username);
+    }
+
+    // Employee
+    @Override
+    public String[] getEmployeeById(String employeeId) throws RemoteException {
         return employeeDAO.getEmployeeById(employeeId);
     }
-    
+
     @Override
-    public int getLeaveBalance(String employeeId) throws RemoteException{
+    public int getLeaveBalance(String employeeId) throws RemoteException {
         return employeeDAO.getLeaveBalance(employeeId);
     }
-    
-    //family Details
-     @Override
+
+    @Override
+    public boolean updateEmployeeById(String employeeId, String firstName, String lastName, String icPassport) throws RemoteException {
+        return employeeDAO.updateEmployeeById(employeeId, firstName, lastName, icPassport);
+    }
+
+    // family Details
+    @Override
     public boolean insertFamilyDetails(String employeeId, String spouseName,
-                                       int children) throws RemoteException {
+            int children) throws RemoteException {
         return familyDetailsDAO.insertFamilyDetails(employeeId, spouseName, children);
     }
 
     @Override
     public boolean updateFamilyDetails(String employeeId, String spouseName,
-                                       int children) throws RemoteException {
+            int children) throws RemoteException {
         return familyDetailsDAO.updateFamilyDetails(employeeId, spouseName, children);
     }
 
@@ -60,13 +80,12 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     public String[] getFamilyByEmployeeId(String employeeId) throws RemoteException {
         return familyDetailsDAO.getFamilyByEmployeeId(employeeId);
     }
-    
-    //leave Application 
+
+    // leave Application
     @Override
     public boolean applyLeave(String leaveId, String employeeId, String leaveType,
-                              String startDate, String endDate) throws RemoteException {
-        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType,
-                                              startDate, endDate);
+            String startDate, String endDate) throws RemoteException {
+        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType, startDate, endDate);
     }
 
     @Override
@@ -85,11 +104,11 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
 
     @Override
     public List<String[]> getLeavesByEmployeeAndYear(String employeeId,
-                                                     int year) throws RemoteException {
+            int year) throws RemoteException {
         return leaveApplicationDAO.getLeavesByEmployeeAndYear(employeeId, year);
     }
-    
-    //leave History 
+
+    // leave History
     @Override
     public boolean insertLeaveHistory(String leaveId, String status) throws RemoteException {
         return leaveHistoryDAO.insertLeaveHistory(leaveId, status);
@@ -98,5 +117,28 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     @Override
     public List<String[]> getHistoryByEmployee(String employeeId) throws RemoteException {
         return leaveHistoryDAO.getHistoryByEmployee(employeeId);
+    }
+
+    // Staff
+    @Override
+    public boolean registerEmp(String firstName, String lastName, String passportNumber, String username,
+            String password, String passconfirm) throws RemoteException {
+
+        // Step 1: Create the employee record first, get back the generated ID
+        String employeeId = employeeDAO.createEmployee(firstName, lastName, passportNumber);
+
+        if (employeeId == null) {
+            System.out.println("HRMService error: Employee creation failed, aborting registration");
+            return false;
+        }
+
+        // Step 2: Now create the user linked to that employeeId
+        boolean userCreated = userDAO.createUser(username, password, "EMP", employeeId, null);
+
+        if (!userCreated) {
+            System.out.println("HRMService error: User creation failed for employeeId: " + employeeId);
+            return false;
+        }
+        return true;
     }
 }

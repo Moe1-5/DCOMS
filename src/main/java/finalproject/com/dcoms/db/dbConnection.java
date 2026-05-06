@@ -13,7 +13,7 @@ import java.sql.SQLException;
  * @author albad
  */
 public class dbConnection {
-    private static final String DB_URL = "jdbc:derby:DCOMS";
+    private static final String DB_URL = "jdbc:derby://localhost:1527/DCOMS";
     private static final String USERNAME = "DCOMS"; 
     private static final String PASSWORD = "DCOMS";  
     
