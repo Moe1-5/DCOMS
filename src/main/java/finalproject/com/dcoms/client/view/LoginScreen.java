@@ -32,7 +32,6 @@ public class LoginScreen extends javax.swing.JPanel {
     }
 
     private void buildUI() {
-        setPreferredSize(new java.awt.Dimension(350, 400));
         setBackground(new java.awt.Color(236, 240, 241));
 
         java.awt.Color primaryBlue = new java.awt.Color(52, 152, 219);
@@ -42,11 +41,12 @@ public class LoginScreen extends javax.swing.JPanel {
         java.awt.Color white = new java.awt.Color(255, 255, 255);
 
         javax.swing.JLabel lblLogo = new javax.swing.JLabel(
-            new javax.swing.ImageIcon(
-                new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))
-                    .getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)
-            )
+                new javax.swing.ImageIcon(
+                        new javax.swing.ImageIcon(getClass().getResource("/images/logo.png"))
+                                .getImage().getScaledInstance(80, 80, java.awt.Image.SCALE_SMOOTH)
+                )
         );
+        lblLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.JLabel lblTitle = new javax.swing.JLabel("HRM System");
         lblTitle.setFont(new java.awt.Font("Segoe UI", 1, 24));
@@ -65,8 +65,8 @@ public class LoginScreen extends javax.swing.JPanel {
         txtfieldUsername.setFont(new java.awt.Font("Segoe UI", 0, 14));
         txtfieldUsername.setForeground(textDark);
         txtfieldUsername.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(borderGray, 1),
-            javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)));
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)));
 
         javax.swing.JLabel lblPassword = new javax.swing.JLabel("Password");
         lblPassword.setFont(new java.awt.Font("Segoe UI", 0, 13));
@@ -75,8 +75,8 @@ public class LoginScreen extends javax.swing.JPanel {
         txtfieldPassword.setFont(new java.awt.Font("Segoe UI", 0, 14));
         txtfieldPassword.setForeground(textDark);
         txtfieldPassword.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(borderGray, 1),
-            javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)));
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(10, 12, 10, 12)));
         txtfieldPassword.setEchoChar('*');
 
         btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14));
@@ -86,7 +86,6 @@ public class LoginScreen extends javax.swing.JPanel {
         btnLogin.setFocusPainted(false);
         btnLogin.setBorderPainted(false);
         btnLogin.setOpaque(true);
-        btnLogin.setPreferredSize(new java.awt.Dimension(0, 42));
         btnLogin.addActionListener(e -> {
             if (loginController != null) {
                 loginController.login(getUsername(), getPassword());
@@ -100,50 +99,50 @@ public class LoginScreen extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setAutoCreateGaps(true);
-        layout.setAutoCreateContainerGaps(true);
+        // fixed width wrapper panel so all fields are the same width
+        int fieldWidth = 280;
+        java.awt.Dimension fieldSize = new java.awt.Dimension(fieldWidth, 42);
+        txtfieldUsername.setPreferredSize(fieldSize);
+        txtfieldPassword.setPreferredSize(fieldSize);
+        btnLogin.setPreferredSize(new java.awt.Dimension(fieldWidth, 42));
 
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                .addComponent(lblLogo)
-                .addComponent(lblTitle)
-                .addComponent(lblSubtitle)
-                .addGap(20)
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblUsername)
-                        .addComponent(txtfieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap())
-                .addGroup(layout.createSequentialGroup()
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblPassword)
-                        .addComponent(txtfieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap())
-                .addComponent(btnLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        setLayout(new java.awt.GridBagLayout());
+        java.awt.GridBagConstraints gbc = new java.awt.GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gbc.anchor = java.awt.GridBagConstraints.CENTER;
 
-        layout.setVerticalGroup(
-            layout.createSequentialGroup()
-                .addGap(30)
-                .addComponent(lblLogo)
-                .addGap(15)
-                .addComponent(lblTitle)
-                .addGap(5)
-                .addComponent(lblSubtitle)
-                .addGap(30)
-                .addComponent(lblUsername)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtfieldUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15)
-                .addComponent(lblPassword)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtfieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25)
-                .addComponent(btnLogin)
-                .addGap(30)
-        );
+        gbc.gridy = 0;
+        gbc.insets = new java.awt.Insets(30, 0, 0, 0);
+        add(lblLogo, gbc);
+
+        gbc.gridy = 1;
+        gbc.insets = new java.awt.Insets(15, 0, 0, 0);
+        add(lblTitle, gbc);
+
+        gbc.gridy = 2;
+        gbc.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(lblSubtitle, gbc);
+
+        gbc.gridy = 3;
+        gbc.insets = new java.awt.Insets(30, 0, 0, 0);
+        add(lblUsername, gbc);
+
+        gbc.gridy = 4;
+        gbc.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(txtfieldUsername, gbc);
+
+        gbc.gridy = 5;
+        gbc.insets = new java.awt.Insets(15, 0, 0, 0);
+        add(lblPassword, gbc);
+
+        gbc.gridy = 6;
+        gbc.insets = new java.awt.Insets(5, 0, 0, 0);
+        add(txtfieldPassword, gbc);
+
+        gbc.gridy = 7;
+        gbc.insets = new java.awt.Insets(25, 0, 30, 0);
+        add(btnLogin, gbc);
     }
 
     /**
