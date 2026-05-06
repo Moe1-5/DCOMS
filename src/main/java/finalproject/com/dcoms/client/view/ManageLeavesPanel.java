@@ -1,18 +1,25 @@
 package finalproject.com.dcoms.client.view;
 
-import finalproject.com.dcoms.client.model.Employee;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
-public class EmployeeDashboard extends javax.swing.JPanel {
+public class ManageLeavesPanel extends javax.swing.JPanel {
 
     public interface NavigationHandler {
         void onDashboardClicked();
         void onManageLeavesClicked();
         void onProfileClicked();
+        void onApplyLeaveClicked();
+    }
+    
+    public interface RefreshHandler {
+        void onRefreshClicked();
     }
 
     private NavigationHandler navigationHandler;
+    private RefreshHandler refreshHandler;
 
-    public EmployeeDashboard() {
+    public ManageLeavesPanel() {
         initComponents();
         setupListeners();
     }
@@ -53,10 +60,30 @@ public class EmployeeDashboard extends javax.swing.JPanel {
                 }
             }
         });
+
+        applyLeaveButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (navigationHandler != null) {
+                    navigationHandler.onApplyLeaveClicked();
+                }
+            }
+        });
+        
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (refreshHandler != null) {
+                    refreshHandler.onRefreshClicked();
+                }
+            }
+        });
     }
 
     public void setNavigationHandler(NavigationHandler handler) {
         this.navigationHandler = handler;
+    }
+    
+    public void setRefreshHandler(RefreshHandler handler) {
+        this.refreshHandler = handler;
     }
 
     @SuppressWarnings("unchecked")
@@ -69,10 +96,6 @@ public class EmployeeDashboard extends javax.swing.JPanel {
         java.awt.Color textDark = new java.awt.Color(44, 62, 80);
         java.awt.Color textLight = new java.awt.Color(236, 240, 241);
 
-        jPanel2 = new javax.swing.JPanel();
-        leaveBalanceBar = new javax.swing.JProgressBar();
-        jLabel3 = new javax.swing.JLabel();
-        leaveBalanceLabel = new javax.swing.JLabel();
         titleLabel = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource("/images/logo.png")).getImage().getScaledInstance(100, 100, java.awt.Image.SCALE_SMOOTH)))
@@ -83,57 +106,26 @@ public class EmployeeDashboard extends javax.swing.JPanel {
         dashboardLabel = new javax.swing.JLabel();
         manageLeavesLabel = new javax.swing.JLabel();
         profileSectionLabel = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        leaveHistoryTable = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        applyLeaveButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
-        setPreferredSize(new java.awt.Dimension(800, 500));
+        setPreferredSize(new java.awt.Dimension(550, 480));
         setBackground(lightGray);
-
-        jPanel2.setBackground(white);
-        jPanel2.setBorder(javax.swing.BorderFactory.createCompoundBorder(
-            javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 195, 199), 1),
-            javax.swing.BorderFactory.createEmptyBorder(20, 20, 20, 20)));
-
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16));
-        jLabel3.setForeground(textDark);
-        jLabel3.setText("Leave Balance");
-
-        leaveBalanceLabel.setFont(new java.awt.Font("Segoe UI", 1, 24));
-        leaveBalanceLabel.setForeground(primaryBlue);
-        leaveBalanceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        leaveBalanceLabel.setText("10 / 20");
-
-        leaveBalanceBar.setFont(new java.awt.Font("Segoe UI", 0, 12));
-        leaveBalanceBar.setForeground(primaryBlue);
-        leaveBalanceBar.setBackground(new java.awt.Color(189, 195, 199));
-        leaveBalanceBar.setStringPainted(true);
-
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(18, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(leaveBalanceBar, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(leaveBalanceLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(17, 17, 17))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(leaveBalanceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(leaveBalanceBar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
 
         titleLabel.setFont(new java.awt.Font("Segoe UI", 1, 28));
         titleLabel.setForeground(textDark);
-        titleLabel.setText("Welcome back,");
+        titleLabel.setText("Manage Leaves");
+
+        refreshButton.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        refreshButton.setBackground(white);
+        refreshButton.setForeground(textDark);
+        refreshButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 195, 199), 1));
+        refreshButton.setText("Refresh");
+        refreshButton.setFocusPainted(false);
+        refreshButton.setOpaque(true);
 
         jPanel1.setBackground(sidebarBlue);
 
@@ -202,6 +194,58 @@ public class EmployeeDashboard extends javax.swing.JPanel {
                         .addGap(23, 23, 23))))
         );
 
+        leaveHistoryTable.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        leaveHistoryTable.setModel(new DefaultTableModel(
+            new Object [][] {},
+            new String [] {
+                "Type", "Start Date", "End Date", "Duration", "Status"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        leaveHistoryTable.setRowHeight(28);
+        leaveHistoryTable.setSelectionBackground(primaryBlue);
+        leaveHistoryTable.setGridColor(new java.awt.Color(189, 195, 199));
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(189, 195, 199), 1));
+        jScrollPane1.setViewportView(leaveHistoryTable);
+        if (leaveHistoryTable.getColumnModel().getColumnCount() > 0) {
+            leaveHistoryTable.getColumnModel().getColumn(0).setResizable(false);
+            leaveHistoryTable.getColumnModel().getColumn(0).setHeaderValue("Type");
+            leaveHistoryTable.getColumnModel().getColumn(1).setResizable(false);
+            leaveHistoryTable.getColumnModel().getColumn(1).setHeaderValue("Start Date");
+            leaveHistoryTable.getColumnModel().getColumn(2).setResizable(false);
+            leaveHistoryTable.getColumnModel().getColumn(2).setHeaderValue("End Date");
+            leaveHistoryTable.getColumnModel().getColumn(3).setResizable(false);
+            leaveHistoryTable.getColumnModel().getColumn(3).setHeaderValue("Duration");
+            leaveHistoryTable.getColumnModel().getColumn(4).setResizable(false);
+            leaveHistoryTable.getColumnModel().getColumn(4).setHeaderValue("Status");
+        }
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        jLabel3.setForeground(textDark);
+        jLabel3.setText("Leave History");
+
+        applyLeaveButton.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        applyLeaveButton.setBackground(primaryBlue);
+        applyLeaveButton.setForeground(white);
+        applyLeaveButton.setText("Apply for Leave");
+        applyLeaveButton.setFocusPainted(false);
+        applyLeaveButton.setBorderPainted(false);
+        applyLeaveButton.setOpaque(true);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -211,7 +255,15 @@ public class EmployeeDashboard extends javax.swing.JPanel {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 520, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(applyLeaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -220,84 +272,41 @@ public class EmployeeDashboard extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(titleLabel)
-                .addGap(30, 30, 30)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addGap(25, 25, 25)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(refreshButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(applyLeaveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(80, Short.MAX_VALUE))
         );
     }
 
+    private javax.swing.JButton applyLeaveButton;
     private javax.swing.JLabel dashboardLabel;
     private javax.swing.JLabel employeeIdLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JProgressBar leaveBalanceBar;
-    private javax.swing.JLabel leaveBalanceLabel;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable leaveHistoryTable;
     private javax.swing.JLabel manageLeavesLabel;
     private javax.swing.JLabel profileLabel;
     private javax.swing.JLabel profileSectionLabel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JButton refreshButton;
 
     public void setTitle(String title) {
         titleLabel.setText(title);
     }
     
-    public void setLeaveBalanceLabel(String label) {
-        leaveBalanceLabel.setText(label);
-    }
-    
     public void setEmployeeIdLabel(String employeeId) {
         employeeIdLabel.setText(employeeId);
     }
-    
-    public void setLeaveBalanceBar(int minimum, int maximum, int balance) {
-        leaveBalanceBar.setMinimum(minimum);
-        leaveBalanceBar.setMaximum(maximum);
-        leaveBalanceBar.setValue(balance);
-    }
 
-    public String getTitle() {
-        return titleLabel.getText();
+    public JTable getLeaveHistoryTable() {
+        return leaveHistoryTable;
     }
-
-    public String getEmployeeId() {
-        return employeeIdLabel.getText();
-    }
-
-    public void setFirstName(String firstName) {
-        String title = titleLabel.getText();
-        if (title.startsWith("Welcome back, ")) {
-            this.currentFirstName = firstName;
-        }
-    }
-
-    public String getFirstName() {
-        String title = titleLabel.getText();
-        if (title.startsWith("Welcome back, ")) {
-            return title.substring("Welcome back, ".length());
-        }
-        return "";
-    }
-
-    public String getLastName() {
-        return "";
-    }
-
-    public String getIcPassport() {
-        return "";
-    }
-
-    public void setEmployeeData(Employee employee) {
-        if (employee != null) {
-            setTitle("Welcome back, " + employee.getFirstName());
-            setLeaveBalanceLabel(employee.getLeaveBalance() + " / 20");
-            setLeaveBalanceBar(0, 20, employee.getLeaveBalance());
-            setEmployeeIdLabel(String.valueOf(employee.getEmployeeId()));
-            this.currentEmployee = employee;
-        }
-    }
-
-    private Employee currentEmployee;
-    private String currentFirstName;
 }

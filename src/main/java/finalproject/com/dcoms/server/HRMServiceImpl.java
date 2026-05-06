@@ -58,6 +58,11 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
         return employeeDAO.getLeaveBalance(employeeId);
     }
 
+    @Override
+    public boolean updateEmployeeById(String employeeId, String firstName, String lastName, String icPassport) throws RemoteException {
+        return employeeDAO.updateEmployeeById(employeeId, firstName, lastName, icPassport);
+    }
+
     // family Details
     @Override
     public boolean insertFamilyDetails(String employeeId, String spouseName,
@@ -80,8 +85,7 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     @Override
     public boolean applyLeave(String leaveId, String employeeId, String leaveType,
             String startDate, String endDate) throws RemoteException {
-        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType,
-                startDate, endDate);
+        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType, startDate, endDate);
     }
 
     @Override

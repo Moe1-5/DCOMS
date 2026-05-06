@@ -25,14 +25,6 @@ public class Client {
                 String url = "rmi://" + HOST + ":" + PORT + "/HRMService";
                 HRMService service = (HRMService) Naming.lookup(url);
 
-                // EmployeeFrame employeeDashboard = new EmployeeFrame();
-                // EmployeeController controller = new EmployeeController(service,
-                // employeeDashboard);
-                // employeeDashboard.setController(controller);
-                // controller.loadEmployee("1");
-
-                // employeeDashboard.setVisible(true);
-
                 // TESTING LOGIN
                 ClientApp app = new ClientApp(service);
                 LoginController loginController = new LoginController(service, app);

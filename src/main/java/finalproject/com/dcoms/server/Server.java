@@ -34,6 +34,10 @@ public class Server {
             Naming.rebind("rmi://" + HOST + "/HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
+            synchronized (Server.class) {
+                Server.class.wait();
+            }
+
         } catch (Exception e) {
             System.out.println("Server error: " + e.getMessage());
         }

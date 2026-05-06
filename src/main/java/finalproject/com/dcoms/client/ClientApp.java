@@ -32,10 +32,10 @@ public class ClientApp {
 
     public void showEmployeeDashboard(User user) {
         System.out.println("DEBUG CLIENT: ognna show employee dashboard!");
-        EmployeeFrame employeeDashboard = new EmployeeFrame();
-        employeeDashboard.setController(employeeController);
-        employeeController.setDashboard(employeeDashboard);
-        employeeDashboard.setVisible(true);
+        EmployeeFrame employeeFrame = new EmployeeFrame();
+        employeeFrame.setController(employeeController);
+        employeeController.setEmployeeFrame(employeeFrame);
+        employeeFrame.setVisible(true);
         employeeController.loadEmployee(user.getEmployeeId());
         loginFrame.dispose();
     }
