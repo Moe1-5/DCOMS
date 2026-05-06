@@ -90,6 +90,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
     }
 
     public void showLeaveApplicationPopup() {
+        // Check if employee has leave balance before showing popup
+        if (currentEmployee != null && currentEmployee.getLeaveBalance() <= 0) {
+            showErrorDialog("You have no leave balance remaining.\nCannot apply for leave.");
+            return;
+        }
+        
         popupFrame.showLeaveApplication();
         popupFrame.getLeaveApplicationPanel().clearFields();
         popupFrame.getLeaveApplicationPanel().setSubmitHandler(new LeaveApplicationPanel.SubmitHandler() {
