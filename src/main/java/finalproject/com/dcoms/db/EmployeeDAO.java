@@ -44,18 +44,35 @@ public class EmployeeDAO {
 
     private String generateEmployeeId() {
         String sql = "SELECT employeeId FROM Employee ORDER BY employeeId DESC FETCH FIRST 1 ROWS ONLY";
+        System.out.println("JFKJDFHGKDJFHGLKDJFGHLDKFJHGLKDJFGHLDKFJHGLDKFJGH");
 
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
 
+            // if (rs.next()) {
+            // String lastId = rs.getString("employeeId"); // e.g. "E007"
+            // if (lastId == null) {
+            // System.out.println("EMPLOYEEDAO: lastId is null. fail.");
+            // }
+            // int num = Integer.parseInt(lastId.substring(1)); // strip "E" -> 7
+            // return String.format("E%03d", num + 1); // -> "E008"
+            // } else {
+            // return "E001"; // first employee ever
+            // }
+
             if (rs.next()) {
-                String lastId = rs.getString("employeeId"); // e.g. "E007"
-                int num = Integer.parseInt(lastId.substring(1)); // strip "E" -> 7
-                return String.format("E%03d", num + 1); // -> "E008"
+                String lastId = rs.getString("employeeId");
+                if (lastId == null || lastId.isEmpty() || !lastId.startsWith("E")) {
+                    System.out.println("EmployeeDAO: Invalid employeeId format in DB: " + lastId);
+                    return "E001"; // Fallback: start fresh
+                }
+                String numStr = lastId.substring(1); // Strip "E"
+                int num = Integer.parseInt(numStr.trim()); // Handle any whitespace
+                return String.format("E%03d", num + 1);
             } else {
-                return "E001"; // first employee ever
+                return "E001";
             }
 
         } catch (SQLException e) {

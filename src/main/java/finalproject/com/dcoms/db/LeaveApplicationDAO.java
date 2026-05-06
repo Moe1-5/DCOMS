@@ -16,10 +16,10 @@ import java.util.List;
  * @author albad
  */
 public class LeaveApplicationDAO {
-     public boolean applyLeave(String leaveId, String employeeId, String leaveType,
-                              String startDate, String endDate) {
+    public boolean applyLeave(String leaveId, String employeeId, String leaveType,
+            String startDate, String endDate) {
         String sql = "INSERT INTO LeaveApplication (leaveId, employeeId, leaveType, startDate, endDate, status) " +
-                     "VALUES (?, ?, ?, ?, ?, 'Pending')";
+                "VALUES (?, ?, ?, ?, ?, 'Pending')";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -54,19 +54,19 @@ public class LeaveApplicationDAO {
     public List<String[]> getLeavesByEmployee(String employeeId) {
         List<String[]> leaves = new ArrayList<>();
         String sql = "SELECT leaveId, leaveType, startDate, endDate, status " +
-                     "FROM LeaveApplication WHERE employeeId = ?";
+                "FROM LeaveApplication WHERE employeeId = ?";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, employeeId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                leaves.add(new String[]{
-                    rs.getString("leaveId"),
-                    rs.getString("leaveType"),
-                    rs.getString("startDate"),
-                    rs.getString("endDate"),
-                    rs.getString("status")
+                leaves.add(new String[] {
+                        rs.getString("leaveId"),
+                        rs.getString("leaveType"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"),
+                        rs.getString("status")
                 });
             }
         } catch (SQLException e) {
@@ -78,8 +78,8 @@ public class LeaveApplicationDAO {
     public List<String[]> getLeavesByEmployeeAndYear(String employeeId, int year) {
         List<String[]> leaves = new ArrayList<>();
         String sql = "SELECT leaveId, leaveType, startDate, endDate, status " +
-                     "FROM LeaveApplication " +
-                     "WHERE employeeId = ? AND YEAR(startDate) = ?";
+                "FROM LeaveApplication " +
+                "WHERE employeeId = ? AND YEAR(startDate) = ?";
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -87,12 +87,12 @@ public class LeaveApplicationDAO {
             stmt.setInt(2, year);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                leaves.add(new String[]{
-                    rs.getString("leaveId"),
-                    rs.getString("leaveType"),
-                    rs.getString("startDate"),
-                    rs.getString("endDate"),
-                    rs.getString("status")
+                leaves.add(new String[] {
+                        rs.getString("leaveId"),
+                        rs.getString("leaveType"),
+                        rs.getString("startDate"),
+                        rs.getString("endDate"),
+                        rs.getString("status")
                 });
             }
         } catch (SQLException e) {
