@@ -20,6 +20,7 @@ public class Server {
     private static final int PORT = 1099;
 
     public static void main(String[] args) {
+        System.setProperty("java.rmi.server.hostname", "100.101.165.57");
         try {
             System.setProperty("javax.net.ssl.keyStore", "server.keystore");
             System.setProperty("javax.net.ssl.keyStorePassword", "password123");

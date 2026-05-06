@@ -9,6 +9,7 @@ import finalproject.com.dcoms.client.view.EmployeeFrame;
 import finalproject.com.dcoms.client.view.HRFrame;
 import finalproject.com.dcoms.client.view.HRRegistration;
 import finalproject.com.dcoms.client.view.LoginFrame;
+import finalproject.com.dcoms.client.view.ReportUI;
 import finalproject.com.dcoms.remote.HRMService;
 
 public class ClientApp {
@@ -50,12 +51,21 @@ public class ClientApp {
 
     }
 
+    public void showReportUI() {
+        ReportUI reportUI = new ReportUI(service);
+        reportUI.setVisible(true);
+    }
+
     public void setController(LoginController loginController) {
         this.loginController = loginController;
     }
 
     public void setController(EmployeeController employeeController) {
         this.employeeController = employeeController;
+    }
+
+    public HRMService getService() {
+        return service;
     }
 
     public void setController(StaffController staffController) {
