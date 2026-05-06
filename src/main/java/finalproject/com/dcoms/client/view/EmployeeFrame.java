@@ -250,6 +250,16 @@ public class EmployeeFrame extends javax.swing.JFrame {
             }
         });
         
+        manageLeavesPanel.setRefreshHandler(new ManageLeavesPanel.RefreshHandler() {
+            @Override
+            public void onRefreshClicked() {
+                if (currentEmployeeId != null) {
+                    controller.loadLeaveHistory(currentEmployeeId);
+                    controller.loadEmployee(currentEmployeeId);
+                }
+            }
+        });
+        
         loadingPanel.setVisible(false);
         employeeDashboardPanel.setVisible(true);
         manageLeavesPanel.setVisible(false);

@@ -11,8 +11,13 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
         void onProfileClicked();
         void onApplyLeaveClicked();
     }
+    
+    public interface RefreshHandler {
+        void onRefreshClicked();
+    }
 
     private NavigationHandler navigationHandler;
+    private RefreshHandler refreshHandler;
 
     public ManageLeavesPanel() {
         initComponents();
@@ -63,10 +68,22 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
                 }
             }
         });
+        
+        refreshButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if (refreshHandler != null) {
+                    refreshHandler.onRefreshClicked();
+                }
+            }
+        });
     }
 
     public void setNavigationHandler(NavigationHandler handler) {
         this.navigationHandler = handler;
+    }
+    
+    public void setRefreshHandler(RefreshHandler handler) {
+        this.refreshHandler = handler;
     }
 
     @SuppressWarnings("unchecked")
@@ -85,11 +102,14 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
         leaveHistoryTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         applyLeaveButton = new javax.swing.JButton();
+        refreshButton = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(800, 400));
 
         titleLabel.setFont(new java.awt.Font("Comic Sans MS", 0, 24));
         titleLabel.setText("Manage Leaves");
+
+        refreshButton.setText("Refresh");
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
 
@@ -191,15 +211,17 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(6, 6, 6)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jScrollPane1))))
-                    .addComponent(applyLeaveButton))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 530, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(refreshButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(applyLeaveButton)))
                 .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -213,7 +235,9 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(applyLeaveButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(refreshButton)
+                    .addComponent(applyLeaveButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }
@@ -229,6 +253,7 @@ public class ManageLeavesPanel extends javax.swing.JPanel {
     private javax.swing.JLabel manageLeavesLabel;
     private javax.swing.JLabel profileLabel;
     private javax.swing.JLabel titleLabel;
+    private javax.swing.JButton refreshButton;
 
     public void setTitle(String title) {
         titleLabel.setText(title);
