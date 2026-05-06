@@ -95,9 +95,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
         popupFrame.getLeaveApplicationPanel().setSubmitHandler(new LeaveApplicationPanel.SubmitHandler() {
             @Override
             public void onSubmit(String leaveType, String startDate, String endDate) {
-                String formattedStart = convertDateToISO(startDate);
-                String formattedEnd = convertDateToISO(endDate);
-                if (formattedStart == null || formattedEnd == null) {
+                // Dates are already in YYYY-MM-DD format from LeaveApplicationPanel
+                if (startDate == null || startDate.isEmpty() || endDate == null || endDate.isEmpty()) {
                     System.out.println("Invalid date format. Please use DD-MM-YYYY");
                     return;
                 }
@@ -106,8 +105,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
                     return;
                 }
                 String leaveId = generateLeaveId();
-                System.out.println("Applying leave: " + leaveId + " for " + currentEmployeeId + " type=" + leaveType + " from=" + formattedStart + " to=" + formattedEnd);
-                controller.applyLeave(leaveId, currentEmployeeId, leaveType, formattedStart, formattedEnd);
+                System.out.println("Applying leave: " + leaveId + " for " + currentEmployeeId + " type=" + leaveType + " from=" + startDate + " to=" + endDate);
+                controller.applyLeave(leaveId, currentEmployeeId, leaveType, startDate, endDate);
                 popupFrame.setVisible(false);
             }
         });
@@ -118,7 +117,8 @@ public class EmployeeFrame extends javax.swing.JFrame {
     private int leaveIdCounter = 0;
     private String generateLeaveId() {
         leaveIdCounter++;
-        return String.format("L%03d", leaveIdCounter);
+        long timestamp = System.currentTimeMillis() % 10000;
+        return String.format("L%03d%d", leaveIdCounter, timestamp);
     }
 
     private String convertDateToISO(String date) {

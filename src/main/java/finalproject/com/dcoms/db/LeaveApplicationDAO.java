@@ -18,10 +18,26 @@ import java.util.List;
 public class LeaveApplicationDAO {
      public boolean applyLeave(String leaveId, String employeeId, String leaveType,
                               String startDate, String endDate) {
-        String sql = "INSERT INTO LeaveApplication (leaveId, employeeId, leaveType, startDate, endDate, status) " +
-                     "VALUES (?, ?, ?, ?, ?, 'Pending')";
+        System.out.println("DEBUG DAO: Attempting to insert leave - ID=" + leaveId + ", Employee=" + employeeId + ", Type=" + leaveType + ", Start=" + startDate + ", End=" + endDate);
+        
         try {
             Connection conn = dbConnection.getConnection();
+            if (conn == null) {
+                System.out.println("DEBUG DAO: Connection is null!");
+                return false;
+            }
+            
+            // Check if employee exists
+            java.sql.PreparedStatement checkStmt = conn.prepareStatement("SELECT employeeId FROM Employee WHERE employeeId = ?");
+            checkStmt.setString(1, employeeId);
+            java.sql.ResultSet rs = checkStmt.executeQuery();
+            if (!rs.next()) {
+                System.out.println("DEBUG DAO: Employee " + employeeId + " does not exist in database!");
+                return false;
+            }
+            
+            String sql = "INSERT INTO LeaveApplication (leaveId, employeeId, leaveType, startDate, endDate, status) " +
+                     "VALUES (?, ?, ?, ?, ?, 'Pending')";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, leaveId);
             stmt.setString(2, employeeId);
@@ -29,9 +45,13 @@ public class LeaveApplicationDAO {
             stmt.setString(4, startDate);
             stmt.setString(5, endDate);
             stmt.executeUpdate();
+            System.out.println("DEBUG DAO: Insert successful!");
             return true;
         } catch (SQLException e) {
             System.out.println("LeaveApplicationDAO error: " + e.getMessage());
+            System.out.println("SQLState: " + e.getSQLState());
+            System.out.println("Error Code: " + e.getErrorCode());
+            e.printStackTrace();
             return false;
         }
     }
