@@ -28,6 +28,7 @@ public class HRRegistration extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated
     // <editor-fold defaultstate="collapsed" desc="Generated
+    // <editor-fold defaultstate="collapsed" desc="Generated
     // Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
@@ -41,6 +42,7 @@ public class HRRegistration extends javax.swing.JPanel {
         staffId = new javax.swing.JLabel();
         lblDashboard = new javax.swing.JLabel();
         lblEmpRegister = new javax.swing.JLabel();
+        lblGenReport = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         txtFirstName = new javax.swing.JTextField();
@@ -66,6 +68,15 @@ public class HRRegistration extends javax.swing.JPanel {
         lblEmpRegister.setText("Register Employees");
         lblEmpRegister.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        lblGenReport.setForeground(new java.awt.Color(255, 255, 255));
+        lblGenReport.setText("Generate Report");
+        lblGenReport.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lblGenReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblGenReportMouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -85,6 +96,8 @@ public class HRRegistration extends javax.swing.JPanel {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addContainerGap(27, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lblGenReport, javax.swing.GroupLayout.PREFERRED_SIZE, 155,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblEmpRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 155,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(lblDashboard, javax.swing.GroupLayout.PREFERRED_SIZE, 155,
@@ -100,8 +113,10 @@ public class HRRegistration extends javax.swing.JPanel {
                                 .addComponent(lblDashboard)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(lblEmpRegister)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145,
-                                        Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(lblGenReport)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
+                                        javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                                 jPanel1Layout.createSequentialGroup()
@@ -244,8 +259,12 @@ public class HRRegistration extends javax.swing.JPanel {
                                 .addGap(24, 24, 24)
                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE,
                                         javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+                                .addContainerGap(51, Short.MAX_VALUE)));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void lblGenReportMouseClicked(java.awt.event.MouseEvent evt) {// GEN-FIRST:event_lblGenReportMouseClicked
+        controller.openReportUI();
+    }// GEN-LAST:event_lblGenReportMouseClicked
 
     private void txtLastNameActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_txtLastNameActionPerformed
         // TODO add your handling code here:
@@ -265,6 +284,7 @@ public class HRRegistration extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblDashboard;
     private javax.swing.JLabel lblEmpRegister;
+    private javax.swing.JLabel lblGenReport;
     private javax.swing.JLabel staffId;
     private javax.swing.JTextField txtFirstName;
     private javax.swing.JTextField txtLastName;

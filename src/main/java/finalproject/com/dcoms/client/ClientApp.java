@@ -51,11 +51,6 @@ public class ClientApp {
 
     }
 
-    public void showReportUI() {
-        ReportUI reportUI = new ReportUI(service);
-        reportUI.setVisible(true);
-    }
-
     public void setController(LoginController loginController) {
         this.loginController = loginController;
     }
