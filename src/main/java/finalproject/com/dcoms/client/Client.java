@@ -27,6 +27,7 @@ public class Client {
                     StaffController staffController = new StaffController(service);
                     app.setController(loginController);
                     app.setController(employeeController);
+                    app.setController(staffController);
                     app.showLogin();
                 }
 
