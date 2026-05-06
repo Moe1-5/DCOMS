@@ -7,7 +7,7 @@ public class PopupFrame extends javax.swing.JFrame {
     public PopupFrame() {
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(550, 480);
+        this.setSize(450, 480);
         this.setLocationRelativeTo(null);
     }
 
