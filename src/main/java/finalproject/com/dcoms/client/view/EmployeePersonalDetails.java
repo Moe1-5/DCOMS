@@ -45,6 +45,15 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
+        java.awt.Color primaryBlue = new java.awt.Color(52, 152, 219);
+        java.awt.Color sidebarBlue = new java.awt.Color(44, 62, 80);
+        java.awt.Color lightGray = new java.awt.Color(236, 240, 241);
+        java.awt.Color white = new java.awt.Color(255, 255, 255);
+        java.awt.Color textDark = new java.awt.Color(44, 62, 80);
+        java.awt.Color textLight = new java.awt.Color(236, 240, 241);
+        java.awt.Color labelGray = new java.awt.Color(127, 140, 141);
+        java.awt.Color borderGray = new java.awt.Color(189, 195, 199);
+
         profilePictureLabel = new javax.swing.JLabel(
                 new javax.swing.ImageIcon(
                         new javax.swing.ImageIcon(getClass().getResource("/images/avatar.png"))
@@ -66,33 +75,84 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
         confirmButton = new javax.swing.JButton();
         editButton = new javax.swing.JButton();
 
+        setPreferredSize(new java.awt.Dimension(420, 480));
+        setBackground(lightGray);
+
+        profilePictureLabel.setBorder(javax.swing.BorderFactory.createLineBorder(white, 3));
         profilePictureLabel.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
 
+        firstNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        firstNameLabel.setForeground(labelGray);
         firstNameLabel.setText("First Name");
+        firstNameField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        firstNameField.setForeground(textDark);
         firstNameField.setEnabled(false);
+        firstNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         firstNameField.addActionListener(evt -> firstNameFieldActionPerformed(evt));
 
+        lastNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        lastNameLabel.setForeground(labelGray);
         lastNameLabel.setText("Last Name");
+        lastNameField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        lastNameField.setForeground(textDark);
         lastNameField.setEnabled(false);
+        lastNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         lastNameField.addActionListener(evt -> lastNameFieldActionPerformed(evt));
 
-        passportLabel.setText("IC/Passport");
+        passportLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        passportLabel.setForeground(labelGray);
+        passportLabel.setText("IC / Passport");
+        passportField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        passportField.setForeground(textDark);
         passportField.setEnabled(false);
+        passportField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         passportField.addActionListener(evt -> passportFieldActionPerformed(evt));
 
+        personalDetailsLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        personalDetailsLabel.setForeground(primaryBlue);
         personalDetailsLabel.setText("Personal Details");
+
+        familyDetailsLabel.setFont(new java.awt.Font("Segoe UI", 1, 14));
+        familyDetailsLabel.setForeground(primaryBlue);
         familyDetailsLabel.setText("Family Details");
 
+        spouseNameLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        spouseNameLabel.setForeground(labelGray);
         spouseNameLabel.setText("Spouse Name");
+        spouseNameField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        spouseNameField.setForeground(textDark);
         spouseNameField.setEnabled(false);
+        spouseNameField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         spouseNameField.addActionListener(evt -> spouseNameFieldActionPerformed(evt));
 
+        childrenLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        childrenLabel.setForeground(labelGray);
         childrenLabel.setText("Children");
 
+        confirmButton.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        confirmButton.setBackground(primaryBlue);
+        confirmButton.setForeground(white);
         confirmButton.setText("Confirm");
+        confirmButton.setFocusPainted(false);
+        confirmButton.setBorderPainted(false);
+        confirmButton.setOpaque(true);
         confirmButton.addActionListener(evt -> confirmButtonActionPerformed(evt));
 
+        editButton.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        editButton.setBackground(white);
+        editButton.setForeground(textDark);
         editButton.setText("Edit");
+        editButton.setFocusPainted(false);
+        editButton.setBorder(javax.swing.BorderFactory.createLineBorder(borderGray, 1));
+        editButton.setOpaque(true);
         editButton.addActionListener(evt -> editButtonActionPerformed(evt));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -120,19 +180,19 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(firstNameLabel)
                                         .addComponent(firstNameField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 180,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18)
+                                .addGap(20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lastNameLabel)
                                         .addComponent(lastNameField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 180,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)))
                         // Row 4 – IC/Passport field (single column)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(passportLabel)
                                 .addComponent(passportField,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 180,
                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                         // Row 5 – "Family Details" section label
                         .addComponent(familyDetailsLabel)
@@ -141,20 +201,20 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(spouseNameLabel)
                                         .addComponent(spouseNameField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 150,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 180,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18)
+                                .addGap(20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(childrenLabel)
                                         .addComponent(childrenSpinner,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
+                                                80,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)))
                         // Row 7 – Confirm button (right-aligned)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING,
                                 layout.createSequentialGroup()
                                         .addComponent(confirmButton,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 90,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 100,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -167,36 +227,37 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                                         javax.swing.GroupLayout.PREFERRED_SIZE, 100,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGroup(layout.createSequentialGroup()
-                                        .addComponent(editButton)))
-                        .addGap(18)
+                                        .addGap(35)
+                                        .addComponent(editButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(25)
                         // Row 2 – "Personal Details" label
                         .addComponent(personalDetailsLabel)
-                        .addGap(10)
+                        .addGap(12)
                         // Row 3 – First Name + Last Name labels then fields
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(firstNameLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(firstNameField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 32,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(layout.createSequentialGroup()
                                         .addComponent(lastNameLabel)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lastNameField,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                                javax.swing.GroupLayout.PREFERRED_SIZE, 32,
                                                 javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(10)
+                        .addGap(12)
                         // Row 4 – IC/Passport label + field
                         .addComponent(passportLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(passportField,
-                                javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                javax.swing.GroupLayout.PREFERRED_SIZE, 32,
                                 javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18)
+                        .addGap(25)
                         // Row 5 – "Family Details" label
                         .addComponent(familyDetailsLabel)
-                        .addGap(10)
+                        .addGap(12)
                         // Row 6 – Spouse Name + Children labels then fields/spinner
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(spouseNameLabel)
@@ -204,17 +265,17 @@ public class EmployeePersonalDetails extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(spouseNameField,
-                                        javax.swing.GroupLayout.PREFERRED_SIZE, 28,
+                                        javax.swing.GroupLayout.PREFERRED_SIZE, 32,
                                         javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(childrenSpinner,
                                         javax.swing.GroupLayout.PREFERRED_SIZE,
-                                        javax.swing.GroupLayout.DEFAULT_SIZE,
+                                        32,
                                         javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED,
                                 javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         // Row 7 – Confirm button
-                        .addComponent(confirmButton)
-                        .addContainerGap(18, Short.MAX_VALUE)
+                        .addComponent(confirmButton, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(25, Short.MAX_VALUE)
         );
     }
 

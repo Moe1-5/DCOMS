@@ -106,6 +106,15 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
     @SuppressWarnings("unchecked")
     private void initComponents() {
 
+        java.awt.Color primaryBlue = new java.awt.Color(52, 152, 219);
+        java.awt.Color sidebarBlue = new java.awt.Color(44, 62, 80);
+        java.awt.Color lightGray = new java.awt.Color(236, 240, 241);
+        java.awt.Color white = new java.awt.Color(255, 255, 255);
+        java.awt.Color textDark = new java.awt.Color(44, 62, 80);
+        java.awt.Color textLight = new java.awt.Color(236, 240, 241);
+        java.awt.Color labelGray = new java.awt.Color(127, 140, 141);
+        java.awt.Color borderGray = new java.awt.Color(189, 195, 199);
+
         leaveTypeLabel = new javax.swing.JLabel();
         leaveTypeField = new javax.swing.JTextField();
         startDateField = new javax.swing.JFormattedTextField();
@@ -117,6 +126,11 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
         resetButton = new javax.swing.JButton();
         leaveTypeComboBox = new javax.swing.JComboBox<>();
 
+        setPreferredSize(new java.awt.Dimension(420, 450));
+        setBackground(lightGray);
+
+        leaveTypeLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        leaveTypeLabel.setForeground(labelGray);
         leaveTypeLabel.setText("Leave Type");
 
         leaveTypeField.setEnabled(false);
@@ -127,39 +141,69 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
             }
         });
 
+        startDateField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        startDateField.setForeground(textDark);
+        startDateField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         startDateField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 startDateFieldActionPerformed(evt);
             }
         });
 
+        startDateLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        startDateLabel.setForeground(labelGray);
         startDateLabel.setText("Start Date");
 
+        endDateLabel.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        endDateLabel.setForeground(labelGray);
         endDateLabel.setText("End Date");
 
+        endDateField.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        endDateField.setForeground(textDark);
+        endDateField.setBorder(javax.swing.BorderFactory.createCompoundBorder(
+                javax.swing.BorderFactory.createLineBorder(borderGray, 1),
+                javax.swing.BorderFactory.createEmptyBorder(8, 10, 8, 10)));
         endDateField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 endDateFieldActionPerformed(evt);
             }
         });
 
-        leaveTypeLabel3.setFont(new java.awt.Font("Segoe UI", 0, 24));
+        leaveTypeLabel3.setFont(new java.awt.Font("Segoe UI", 1, 28));
+        leaveTypeLabel3.setForeground(textDark);
         leaveTypeLabel3.setText("Leave Application");
 
+        applyButton.setFont(new java.awt.Font("Segoe UI", 1, 13));
+        applyButton.setBackground(primaryBlue);
+        applyButton.setForeground(white);
         applyButton.setText("Apply");
+        applyButton.setFocusPainted(false);
+        applyButton.setBorderPainted(false);
+        applyButton.setOpaque(true);
         applyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 applyButtonActionPerformed(evt);
             }
         });
 
+        resetButton.setFont(new java.awt.Font("Segoe UI", 0, 13));
+        resetButton.setBackground(white);
+        resetButton.setForeground(textDark);
         resetButton.setText("Reset");
+        resetButton.setFocusPainted(false);
+        resetButton.setBorder(javax.swing.BorderFactory.createLineBorder(borderGray, 1));
+        resetButton.setOpaque(true);
         resetButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 resetButtonActionPerformed(evt);
             }
         });
 
+        leaveTypeComboBox.setFont(new java.awt.Font("Segoe UI", 0, 14));
+        leaveTypeComboBox.setForeground(textDark);
+        leaveTypeComboBox.setBorder(javax.swing.BorderFactory.createLineBorder(borderGray, 1));
         leaveTypeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Annual Leave", "Sick Leave", "Unpaid Leave", "Emergency Leave"}));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -167,52 +211,54 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addGap(15, 15, 15)
+                                .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(leaveTypeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(leaveTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(leaveTypeLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGap(27, 27, 27)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                                .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(leaveTypeLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(startDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(30, 30, 30)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(endDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(0, 0, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(leaveTypeLabel)
+                                                        .addComponent(leaveTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 50, Short.MAX_VALUE)))
                                 .addContainerGap())
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(resetButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(applyButton)
+                                .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(applyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
+                                .addGap(30, 30, 30)
                                 .addComponent(leaveTypeLabel3)
-                                .addGap(18, 18, 18)
+                                .addGap(30, 30, 30)
                                 .addComponent(leaveTypeLabel)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(leaveTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addComponent(leaveTypeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(25, 25, 25)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(endDateLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addComponent(endDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(startDateLabel)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                .addComponent(startDateField, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 200, Short.MAX_VALUE)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(applyButton)
-                                        .addComponent(resetButton))
+                                        .addComponent(applyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addContainerGap())
         );
     }

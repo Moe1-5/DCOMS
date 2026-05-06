@@ -1,14 +1,15 @@
 package finalproject.com.dcoms.client.view;
 
 import java.awt.CardLayout;
+import java.awt.Frame;
 
-public class PopupFrame extends javax.swing.JFrame {
+public class PopupFrame extends javax.swing.JDialog {
 
-    public PopupFrame() {
+    public PopupFrame(Frame parent) {
+        super(parent, true);
         initComponents();
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setSize(450, 480);
-        this.setLocationRelativeTo(null);
+        this.setLocationRelativeTo(parent);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,8 +19,6 @@ public class PopupFrame extends javax.swing.JFrame {
         employeePersonalDetails2 = new finalproject.com.dcoms.client.view.EmployeePersonalDetails();
         leaveApplicationPanel1 = new finalproject.com.dcoms.client.view.LeaveApplicationPanel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
         parentPanel.setLayout(new java.awt.CardLayout());
         parentPanel.add(employeePersonalDetails2, "personalDetails");
         parentPanel.add(leaveApplicationPanel1, "leaveApplication");
@@ -28,11 +27,11 @@ public class PopupFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(parentPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 520, Short.MAX_VALUE)
         );
 
         pack();
