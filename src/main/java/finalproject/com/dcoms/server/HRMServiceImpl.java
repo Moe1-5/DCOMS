@@ -114,4 +114,27 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     public List<String[]> getHistoryByEmployee(String employeeId) throws RemoteException {
         return leaveHistoryDAO.getHistoryByEmployee(employeeId);
     }
+
+    // Staff
+    @Override
+    public boolean registerEmp(String firstName, String lastName, String passportNumber, String username,
+            String password, String passconfirm) throws RemoteException {
+
+        // Step 1: Create the employee record first, get back the generated ID
+        String employeeId = employeeDAO.createEmployee(firstName, lastName, passportNumber);
+
+        if (employeeId == null) {
+            System.out.println("HRMService error: Employee creation failed, aborting registration");
+            return false;
+        }
+
+        // Step 2: Now create the user linked to that employeeId
+        boolean userCreated = userDAO.createUser(username, password, "EMP", employeeId, null);
+
+        if (!userCreated) {
+            System.out.println("HRMService error: User creation failed for employeeId: " + employeeId);
+            return false;
+        }
+        return true;
+    }
 }

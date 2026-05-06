@@ -45,4 +45,7 @@ public interface HRMService extends Remote {
 
     List<String[]> getHistoryByEmployee(String employeeId) throws RemoteException;
 
+    boolean registerEmp(String firstName, String lastName, String passportNumber, String username,
+            String password, String passconfirm) throws RemoteException;
+
 }
