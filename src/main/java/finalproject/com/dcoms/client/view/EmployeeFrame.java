@@ -97,13 +97,54 @@ public class EmployeeFrame extends javax.swing.JFrame {
             public void onSubmit(String leaveType, String startDate, String endDate) {
                 // Dates are already in YYYY-MM-DD format from LeaveApplicationPanel
                 if (startDate == null || startDate.isEmpty() || endDate == null || endDate.isEmpty()) {
-                    System.out.println("Invalid date format. Please use DD-MM-YYYY");
+                    showErrorDialog("Invalid date format. Please use DD-MM-YYYY");
                     return;
                 }
                 if (leaveType == null || leaveType.isEmpty()) {
-                    System.out.println("Leave type cannot be empty");
+                    showErrorDialog("Leave type cannot be empty");
                     return;
                 }
+                
+                // Validate: Check if leave balance is 0
+                if (currentEmployee != null && currentEmployee.getLeaveBalance() <= 0) {
+                    showErrorDialog("You have no leave balance remaining.\nCannot apply for leave.");
+                    return;
+                }
+                
+                // Validate: Check if start date is backdated
+                try {
+                    java.time.LocalDate start = java.time.LocalDate.parse(startDate);
+                    java.time.LocalDate today = java.time.LocalDate.now();
+                    if (start.isBefore(today)) {
+                        showErrorDialog("Cannot apply for backdated leave.\nStart date cannot be before today.");
+                        return;
+                    }
+                } catch (Exception e) {
+                    showErrorDialog("Invalid date format");
+                    return;
+                }
+                
+                // Validate: Check if duration exceeds leave balance
+                try {
+                    java.time.LocalDate start = java.time.LocalDate.parse(startDate);
+                    java.time.LocalDate end = java.time.LocalDate.parse(endDate);
+                    int duration = (int) java.time.temporal.ChronoUnit.DAYS.between(start, end) + 1;
+                    
+                    if (currentEmployee != null && duration > currentEmployee.getLeaveBalance()) {
+                        showErrorDialog("Insufficient leave balance.\nDuration: " + duration + " days\nAvailable balance: " + currentEmployee.getLeaveBalance() + " days");
+                        return;
+                    }
+                    
+                    // Also validate end date is not before start date
+                    if (end.isBefore(start)) {
+                        showErrorDialog("End date cannot be before start date.");
+                        return;
+                    }
+                } catch (Exception e) {
+                    showErrorDialog("Invalid date format");
+                    return;
+                }
+                
                 String leaveId = generateLeaveId();
                 System.out.println("Applying leave: " + leaveId + " for " + currentEmployeeId + " type=" + leaveType + " from=" + startDate + " to=" + endDate);
                 controller.applyLeave(leaveId, currentEmployeeId, leaveType, startDate, endDate);
@@ -112,6 +153,10 @@ public class EmployeeFrame extends javax.swing.JFrame {
         });
         popupFrame.setVisible(true);
         popupFrame.toFront();
+    }
+    
+    private void showErrorDialog(String message) {
+        javax.swing.JOptionPane.showMessageDialog(popupFrame, message, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
     }
 
     private int leaveIdCounter = 0;
@@ -139,6 +184,7 @@ public class EmployeeFrame extends javax.swing.JFrame {
     public void onLeaveApplied() {
         if (currentEmployeeId != null) {
             controller.loadLeaveHistory(currentEmployeeId);
+            controller.loadEmployee(currentEmployeeId); // Refresh dashboard with updated leave balance
         }
     }
 

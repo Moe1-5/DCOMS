@@ -85,8 +85,7 @@ public class HRMServiceImpl extends UnicastRemoteObject implements HRMService {
     @Override
     public boolean applyLeave(String leaveId, String employeeId, String leaveType,
             String startDate, String endDate) throws RemoteException {
-        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType,
-                startDate, endDate);
+        return leaveApplicationDAO.applyLeave(leaveId, employeeId, leaveType, startDate, endDate);
     }
 
     @Override

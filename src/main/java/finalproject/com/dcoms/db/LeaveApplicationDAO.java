@@ -36,6 +36,7 @@ public class LeaveApplicationDAO {
                 return false;
             }
             
+            // Insert leave application
             String sql = "INSERT INTO LeaveApplication (leaveId, employeeId, leaveType, startDate, endDate, status) " +
                      "VALUES (?, ?, ?, ?, ?, 'Pending')";
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -46,6 +47,34 @@ public class LeaveApplicationDAO {
             stmt.setString(5, endDate);
             stmt.executeUpdate();
             System.out.println("DEBUG DAO: Insert successful!");
+            
+            // Calculate leave duration and deduct from balance
+            try {
+                java.time.LocalDate start = java.time.LocalDate.parse(startDate);
+                java.time.LocalDate end = java.time.LocalDate.parse(endDate);
+                int duration = (int) java.time.temporal.ChronoUnit.DAYS.between(start, end) + 1;
+                
+                // Get current balance and deduct
+                PreparedStatement balStmt = conn.prepareStatement("SELECT leaveBalance FROM Employee WHERE employeeId = ?");
+                balStmt.setString(1, employeeId);
+                ResultSet balRs = balStmt.executeQuery();
+                if (balRs.next()) {
+                    int currentBalance = balRs.getInt("leaveBalance");
+                    int newBalance = currentBalance - duration;
+                    if (newBalance < 0) newBalance = 0;
+                    
+                    // Update the leave balance
+                    PreparedStatement updStmt = conn.prepareStatement("UPDATE Employee SET leaveBalance = ? WHERE employeeId = ?");
+                    updStmt.setInt(1, newBalance);
+                    updStmt.setString(2, employeeId);
+                    updStmt.executeUpdate();
+                    
+                    System.out.println("DEBUG DAO: Deducted " + duration + " days from leave balance. Old: " + currentBalance + ", New: " + newBalance);
+                }
+            } catch (Exception e) {
+                System.out.println("DEBUG DAO: Error updating leave balance: " + e.getMessage());
+            }
+            
             return true;
         } catch (SQLException e) {
             System.out.println("LeaveApplicationDAO error: " + e.getMessage());

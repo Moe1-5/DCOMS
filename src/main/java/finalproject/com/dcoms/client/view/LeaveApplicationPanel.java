@@ -231,15 +231,18 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
             String startDate = getStartDate();
             String endDate = getEndDate();
 
-            // Validate date format
-            if (isValidDateFormat(startDate) && isValidDateFormat(endDate)) {
+            // Validate and normalize date format (allows 1-2-2027 or 01-02-2027)
+            String normalizedStart = normalizeDate(startDate);
+            String normalizedEnd = normalizeDate(endDate);
+            
+            if (normalizedStart != null && normalizedEnd != null) {
                 // Convert to YYYY-MM-DD for database
-                String dbStartDate = convertToDatabaseFormat(startDate);
-                String dbEndDate = convertToDatabaseFormat(endDate);
+                String dbStartDate = convertToDatabaseFormat(normalizedStart);
+                String dbEndDate = convertToDatabaseFormat(normalizedEnd);
                 submitHandler.onSubmit(getLeaveType(), dbStartDate, dbEndDate);
             } else {
                 javax.swing.JOptionPane.showMessageDialog(this,
-                        "Please enter dates in DD-MM-YYYY format\nExample: 18-12-2026",
+                        "Please enter dates in DD-MM-YYYY format\nExample: 18-12-2026 or 1-12-2026",
                         "Invalid Date Format",
                         javax.swing.JOptionPane.ERROR_MESSAGE);
             }
@@ -254,11 +257,27 @@ public class LeaveApplicationPanel extends javax.swing.JPanel {
         return parts[2] + "-" + parts[1] + "-" + parts[0];
     }
 
+    private String normalizeDate(String date) {
+        if (date == null || date.isEmpty()) {
+            return null;
+        }
+        // Allow 1-2-2027, 01-2-2027, 1-02-2027, 01-02-2027
+        if (!date.matches("\\d{1,2}-\\d{1,2}-\\d{4}")) {
+            return null;
+        }
+        String[] parts = date.split("-");
+        String day = String.format("%02d", Integer.parseInt(parts[0]));
+        String month = String.format("%02d", Integer.parseInt(parts[1]));
+        String year = parts[2];
+        return day + "-" + month + "-" + year;
+    }
+
     private boolean isValidDateFormat(String date) {
         if (date == null || date.isEmpty()) {
             return false;
         }
-        return date.matches("\\d{2}-\\d{2}-\\d{4}");
+        // Allow flexible format: 1-2-2027 or 01-02-2027
+        return date.matches("\\d{1,2}-\\d{1,2}-\\d{4}");
     }
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {
