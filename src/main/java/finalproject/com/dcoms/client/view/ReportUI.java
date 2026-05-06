@@ -45,6 +45,7 @@ public class ReportUI extends javax.swing.JFrame {
     
     public ReportUI(HRMService service) {
         this.service = service;
+        buildUI();
     }
     
     
