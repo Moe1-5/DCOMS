@@ -201,6 +201,9 @@ public class EmployeeFrame extends javax.swing.JFrame {
     public void setDashboardDetails(Employee employee) {
         if (employee == null) return;
         
+        // For first load (login), show dashboard
+        boolean isFirstLoad = (currentEmployeeId == null);
+        
         currentEmployee = employee;
         currentEmployeeId = employee.getEmployeeId();
         
@@ -210,6 +213,14 @@ public class EmployeeFrame extends javax.swing.JFrame {
         employeeDashboardPanel.setEmployeeIdLabel(String.valueOf(employee.getEmployeeId()));
         
         manageLeavesPanel.setEmployeeIdLabel(String.valueOf(employee.getEmployeeId()));
+        
+        // Only set initial visibility on first load, not on refresh
+        if (isFirstLoad) {
+            loadingPanel.setVisible(false);
+            employeeDashboardPanel.setVisible(true);
+            manageLeavesPanel.setVisible(false);
+            showDashboard();
+        }
         
         employeeDashboardPanel.setNavigationHandler(new EmployeeDashboard.NavigationHandler() {
             @Override
@@ -253,16 +264,12 @@ public class EmployeeFrame extends javax.swing.JFrame {
         manageLeavesPanel.setRefreshHandler(new ManageLeavesPanel.RefreshHandler() {
             @Override
             public void onRefreshClicked() {
+                showManageLeaves(); // This reloads leave history and stays on the panel
                 if (currentEmployeeId != null) {
-                    controller.loadLeaveHistory(currentEmployeeId);
-                    controller.loadEmployee(currentEmployeeId);
+                    controller.loadEmployee(currentEmployeeId); // Also refresh employee data
                 }
             }
         });
-        
-        loadingPanel.setVisible(false);
-        employeeDashboardPanel.setVisible(true);
-        manageLeavesPanel.setVisible(false);
     }
 
     public void setPersonalDetails(String[] familyDetails) {
