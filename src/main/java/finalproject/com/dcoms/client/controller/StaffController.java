@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 
 import finalproject.com.dcoms.client.view.HRFrame;
+import finalproject.com.dcoms.client.view.ReportUI;
 import finalproject.com.dcoms.remote.HRMService;
 
 public class StaffController {
@@ -41,5 +42,10 @@ public class StaffController {
                 }
             }
         }.execute();
+    }
+
+    public void openReportUI() {
+        ReportUI reportUI = new ReportUI(service);
+        reportUI.setVisible(true);
     }
 }
