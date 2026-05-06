@@ -14,7 +14,7 @@ public class UserDAO {
             return false;
         }
 
-        String sql = "INSERT INTO User (userId, username, password, role, employeeId, hrId) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO Users (userId, username, password, role, employeeId, hrId) VALUES (?, ?, ?, ?, ?, ?)";
 
         try {
             Connection conn = dbConnection.getConnection();
@@ -47,7 +47,7 @@ public class UserDAO {
     }
 
     private String generateUserId() {
-        String sql = "SELECT userId FROM User ORDER BY userId DESC FETCH FIRST 1 ROWS ONLY 1";
+        String sql = "SELECT userId FROM Users ORDER BY userId DESC FETCH FIRST 1 ROWS ONLY";
 
         try {
             Connection conn = dbConnection.getConnection();
