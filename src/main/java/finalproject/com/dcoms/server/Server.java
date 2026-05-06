@@ -16,10 +16,11 @@ import javax.rmi.ssl.SslRMIServerSocketFactory;
  */
 public class Server {
 
-    private static final String HOST = "localhost";
+    private static final String HOST = "100.68.113.106";
     private static final int PORT = 1099;
 
     public static void main(String[] args) {
+        System.setProperty("java.rmi.server.hostname", HOST);
         try {
             System.setProperty("javax.net.ssl.keyStore", "server.keystore");
             System.setProperty("javax.net.ssl.keyStorePassword", "password123");
@@ -31,7 +32,7 @@ public class Server {
             System.out.println("RMI registry started on port " + PORT + "...");
 
             HRMService service = new HRMServiceImpl(csf, ssf);
-            Naming.rebind("rmi://" + HOST + "/HRMService", service);
+            Naming.rebind("rmi:/localhost/HRMService", service);
             System.out.println("HRMService is ready and waiting for clients...");
 
             synchronized (Server.class) {

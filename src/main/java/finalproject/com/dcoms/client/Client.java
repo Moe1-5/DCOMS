@@ -12,7 +12,7 @@ import javax.security.auth.login.LoginContext;
 
 public class Client {
 
-    private static final String HOST = "localhost";
+    private static final String HOST = "100.68.113.106";
     private static final int PORT = 1099;
 
     public static void main(String[] args) {
